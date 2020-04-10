@@ -1,0 +1,228 @@
+
+.content{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	background-color: #FFFFFF;
+}
+.head{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.head_pic{
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 30rpx;
+	width: 700rpx;
+	height: 230rpx;
+}
+.college_intro{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	margin-top: 30rpx;
+}
+.collegename{
+	font-weight: bolder;
+	font-size: 60rpx;
+	letter-spacing: 3rpx;
+}
+.intro_details{
+	color: grey;
+	margin-top: 20rpx;
+	font-size: 30rpx;
+}
+.collge_logo{
+	max-width: 100%;
+	max-height: 100%;
+	width:180rpx;
+	height: 180rpx;
+}
+.major{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	margin-top: 10rpx;
+}
+.divLine{
+	padding:12px 6px 0px 6px;
+	margin-left: 30rpx;
+	border-left: 10rpx solid #535353;
+	height: 48rpx;
+	margin-top: 8rpx;
+}
+.title1{
+	font-size: 44rpx;
+	font-weight: bold;
+	letter-spacing: 3rpx;
+}
+.majoritem{
+	border:1rpx solid #ffffff;
+	width: 400rpx;
+	height: 120rpx;
+	margin-left: auto;
+	margin-right: auto;    /*框体水平居中 */
+	margin-top: 20rpx;
+	box-shadow: 0rpx 3rpx 5rpx #e6e6e6; 
+	font-size: 40rpx;
+	font-weight: bold;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center; /*文字水平垂直居中 */
+}
+.course{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	margin-top: 50rpx;
+}
+.course_item{
+	border:1rpx solid #ffffff;
+	box-shadow: 0rpx 3rpx 6rpx #e6e6e6; 
+	margin-left: auto;
+	margin-right: auto; 
+	display: -webkit-box; 
+	display: -webkit-flex; 
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	width: 680rpx;
+	height: 200rpx;
+	margin-top: 30rpx;
+}
+.level{
+	border:1rpx solid #5b5b5b;
+	color: #5b5b5b;
+	height: 40rpx;
+	width: 70rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center; 
+	margin-top: 80rpx;
+	margin-left: 30rpx;
+}
+.courseone{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	width: 450rpx;
+	margin-top: 30rpx;
+	margin-left: 40rpx;
+}
+.course_name{
+	font-size: 40rpx;
+	font-weight: bold;
+	color: #5f656c;
+}
+.course_summary{
+	color: #5b5b5b;
+	margin-top: 10rpx;
+	font-size: 32rpx;
+}
+.course_request1{
+	color: #e1945f;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-left: 5rpx;
+	font-size: 32rpx;
+}
+.course_request2{
+	color:#37c17c;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center; 
+	margin-left: 5rpx;
+	font-size: 32rpx;
+}
+.course_more{
+	color:#5b5b5b;
+	font-size: 32rpx;
+	margin-left: 550rpx;
+	margin-top: 25rpx;
+}
+.tutor{
+	margin-bottom: 30rpx;
+}
+.tutor_item{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	margin-top: 50rpx;
+}
+.tutor_logo{
+	border-radius:50%;
+	height: 150rpx;
+	width: 150rpx;
+	margin-left: 40rpx;
+}
+.tutor_intro{
+	margin-left: 60rpx;
+	color:#5b5b5b ;
+}
+.tutor_name{
+	font-size: 40rpx;
+	font-weight: bold;
+}
+.tutor_positiom{
+	font-size: 32rpx;
+	margin-top: 10rpx;
+}
+.tutor_emaildress{
+	font-size: 28rpx;
+	margin-top: 10rpx;
+}
+
