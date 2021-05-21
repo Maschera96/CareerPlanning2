@@ -1,0 +1,186 @@
+
+.content{
+	background-color: #FFFFFF;
+}
+.text-head{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.necessary{
+	color: red;
+	font-size: 25rpx;
+}
+.colum{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin-left: 30rpx;
+}
+.colum3{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin-left: 30rpx;
+	margin-top: 45rpx;
+}
+.colum1{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.colum2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin-top: 45rpx;
+}
+.ro{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-top: 15rpx;
+}
+.ro1{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.card {
+	display: block;
+	overflow: hidden;
+	display: block;
+	background-color: #ffffff;
+	overflow: hidden;
+	border-radius: 10rpx;
+	width: 95%;
+	margin-top: 30rpx;
+}
+.basicinfo{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.icon{
+	border:3px solid #ff8735;
+	border-radius:50%;
+	background-color: #ff8735;
+	width: 120rpx;
+	height: 120rpx;
+	margin-left: 220rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding: 10rpx 15rpx 20rpx 15rpx;
+}
+.college_icon{
+	max-width: 100%;
+	max-height: 100%;
+	width: 80rpx;
+	height: 80rpx;
+}
+.introdution{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding-left: 10rpx;
+	padding-top: 25rpx;
+}
+.end{
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-top: 40rpx;
+	margin-bottom: 40rpx;
+}
+.buto{
+	margin-left: 30%;
+	width: 40%;
+}
+.text-subhead{
+	font-size: 38rpx;
+	font-weight: 600;
+	margin-left: 38%;
+}
+.text-subhead_{
+	font-size: 38rpx;
+	font-weight: 600;
+	margin-left: 38%;
+}
+.adjust1{
+	margin-top: 25rpx;
+	color: #000000;
+}
+.adjust2{
+	padding: 30rpx 30rpx 30rpx 30rpx;
+}
+

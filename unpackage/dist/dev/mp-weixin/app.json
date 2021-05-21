@@ -1,23 +1,34 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/college/college_details",
-    "pages/company_details/company_details",
+    "pages/index/college/college_details",
+    "pages/index/planning/planning",
+    "pages/index/planning/adjustPlanning",
+    "pages/index/company/company_details/company_details",
     "pages/list/list",
     "pages/mine/mine",
-    "pages/article_details/article_details",
-    "pages/attitude/attitude",
-    "pages/jobbrowse/jobbrowse",
-    "pages/position_details/position_details",
-    "pages/company/company",
-    "pages/college/college"
+    "pages/mine/myArticles/myArticles",
+    "pages/mine/myPublish/myPublish",
+    "pages/mine/resume/resume",
+    "pages/list/article_details/article_details",
+    "pages/list/new_article/new_article",
+    "pages/list/attitude/attitude",
+    "pages/index/company/company_details/jobbrowse/jobbrowse",
+    "pages/index/company/company_details/jobbrowse/position_details/position_details",
+    "pages/index/company/company",
+    "pages/index/college/college",
+    "pages/mine/history/history",
+    "pages/mine/resume/editResume",
+    "pages/mine/resume/newResume",
+    "pages/mine/resume/sendResume",
+    "pages/index/course/course",
+    "pages/index/books/books"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "职业规划",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#F8F8F8"
   },
   "tabBar": {
     "color": "#AAAAAA",
@@ -45,6 +56,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap51.json"
+  "usingComponents": {}
 }

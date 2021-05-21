@@ -20,74 +20,60 @@
 
 		<!-- 卡片层 -->
 		<view class="card">
-			<navigator url="/pages/index/temporary">
-				<image class="cardp" src=../../static/index_pic/QQ图片20200307165602.png></image>
-			</navigator>
+			<image class="cardp" src=../../static/index_pic/title.jpg ></image>
 		</view>	
 	
 		
 		<!-- 按钮层  -->
 		<view class ="icon">
-			<navigator url="/pages/position_details/position_details">
-				<view class = "ic">
-					<view class="course">
-						<image class="course_icon" src=../../static/index_pic/课程.png></image>
-					</view>
-					<view class="text2">
-						<text>课程</text>
-					</view>
-				</view>	
-			</navigator>
-			
-			<navigator url="/pages/college/college">
-				<view class = "ic">
-				<view class="college">
-					<image class="college_icon" src=../../static/index_pic/学院.png></image>
+			<view class = "ic">
+				<view class="course" @tap="gotoCourse()">
+					<image class="course_icon" src=../../static/index_pic/course.png></image>
 				</view>
 					<view class="text2">
-						<text>学院</text>
-					</view>
-				</view>	
-			</navigator>
-			
-			<navigator url="/pages/index/temporary">
-				<view class = "ic">
-					<view class="book">
-						<image class="book_icon" src=../../static/index_pic/书籍.png></image>
-					</view>
-					<view class="text2">
-						<text>书籍</text>
-					</view>
-				</view>	
-			</navigator>
-			
-			<navigator url="/pages/index/temporary">
-				<view class = "ic">
-				<view class="competition">
-					<image class="competition_icon" src=../../static/index_pic/竞赛.png></image>
+					<text>课程</text>
 				</view>
-					<view class="text2">
-						<text>竞赛</text>
-					</view>
-				</view>	
-			</navigator>
+			</view>	
+			
+			<view class = "ic">
+			<view class="college" @tap="gotoCollege()">
+				<image class="college_icon" src=../../static/index_pic/college.png></image>
+			</view>
+				<view class="text2">
+					<text>学院</text>
+				</view>
+			</view>	
+		
+			<view class = "ic">
+				<view class="book" @tap="gotoBook()">
+					<image class="book_icon" src=../../static/index_pic/book.png></image>
+				</view>
+				<view class="text2">
+					<text>书籍</text>
+				</view>
+			</view>	
+			
+			<view class = "ic">
+			<view class="competition">
+				<image class="competition_icon" src=../../static/index_pic/competition.png></image>
+			</view>
+				<view class="text2">
+					<text>竞赛</text>
+				</view>
+			</view>	
 		</view>
 		
-		<!-- 学校企业层  -->
-		<view class="sc">
-			<navigator url="/pages/index/temporary">
-				<view class="s">
-					<image class="sp" src=../../static/index_pic/%7BE4FE2AB9-6A61-A48C-3978-6999C9ADE1FC%7D.png >
-					</image>
-				</view>
-			</navigator>
-			
-			<navigator url="/pages/company/company">
-				<view class="c">
-					<image class="cp" src=../../static/index_pic/%7B04D0918C-D4F1-FFFC-FEA5-CB4171288CDE%7D.png >
-					</image>
-				</view>
-			</navigator>
+		<!-- 规划企业层  -->
+		<view class="PlanningCompany">
+			<view class="Company" @tap="gotoCompany()">
+				<image class="CompanyPic" src=../../static/index_pic/company.jpg >
+				</image>
+			</view>
+		
+			<view class="Planning" @tap="gotoPlanning()">
+				<image class="PlanningPic" src=../../static/index_pic/planning.jpg >
+				</image>
+			</view>	
 		</view>	
 		
 	<!--文章列表层-->
@@ -100,11 +86,10 @@
 			</view>			
 		
 			<view class="jobs">	
-			
 				<view class="hotposition">
-					<view class="ex" v-for="(value,index) in listData" :key="index" @click="goDetail" >
+					<view class="ex" v-for="(value,index) in listData" :key="index" @click="goDetail(value._id)" >
 						<view class="oneitem">
-							<image class="company_logo" v-bind:src=value.company_logo> </image>
+							<image class="company_logo" v-bind:src=value.company.logo> </image>
 							<view class="infor">
 								<view class="company_position">{{value.position}}</view>
 								<view class="company_request">{{value.place}}|{{value.experience}}|{{value.education}}</view>
@@ -125,23 +110,96 @@
 	export default {
 		data() {
 			return {  
-				listData:[]
-			
+				listData:[],
+				modalName: false,
 			}
 		},
 		onLoad:function(e){
-			let th=this;
-			uni.request({
-				url:'http://zygh.store/api/job ',
-				success:function(res){
-					th.listData=res.data.data.data;
-					console.log(th.listData);
-					}
-				})
+			//存入code值，用于用户登陆
+			wx.login({
+				success: (res) => {
+					wx.setStorage({
+						key: 'loginCode',
+						data: res.code
+					})
+				}
+			})
+			
+			// wx.cloud.init({
+			// 	env: 'zygh-test-wn16v',
+			// 	traceUser: true,
+			// });
+			// 获取用户的openid
+			wx.cloud.callFunction({
+				name: 'login',	 // 打开微信云开发控制平台，左上角点击[云函数]
+				data: {},
+				success: res => {
+					// 缓存用户openid，方便后续再次调用
+					uni.setStorage({
+						key: "openId",
+						data: res.result.openid
+					});
+				},
+				fail: err => {
+				  console.error('获取失败：', err);
+				  reject('获取失败');
+				}
+			});
+			
+			
+			
+			
+			
+			
+			
+			wx.cloud.init()
+			const db = wx.cloud.database();
+		//	const _ = db.command;
+			
+			wx.cloud.callFunction({
+				name:'hotJobs',
+			}).then(res => {
+				this.listData = res.result.data
+				console.log(res)
+				
+			}).catch(err => {
+				console.error(err)
+			})
 		},
+			
 		methods: {
+			gotoCompany:function(){
+			uni.navigateTo({
+					url:'/pages/index/company/company'
+				})
+			},
+			gotoCollege:function(){
+			uni.navigateTo({
+					url:'pages/index/college/college'
+				})
+			},
+            gotoBook:function(){
+				uni.navigateTo({
+					url:'/pages/index/books/books'
+				})
+			},
+			gotoCourse:function(){
+				uni.navigateTo({
+					url:'/pages/index/course/course'
+				})
+			},
+			gotoPlanning:function(){
+			uni.navigateTo({
+					url:'/pages/index/planning/planning'
+				})
+			},
+            goDetail:function(id){
+				uni.navigateTo({
+					url:'/pages/index/company/company_details/jobbrowse/position_details/position_details?job_id='+id
+				})
+			}
 
-		}
+		},
 	}
 </script>
 
@@ -292,30 +350,30 @@
 		color: #8799A3;
 	}
 
-	.sc {    
+	.PlanningCompany {    
 		display: flex;
 		flex-direction: row;
 		justify-content:space-around;
 		height:480rpx;
 	}
 	
-	.sp {
+	.PlanningPic {
 		border-radius: 8%;
 		max-width: 100%;  
 	    max-height: 100%;
 		height: 440rpx;
 		width: 310rpx;
 		margin-top: 40rpx;
-		margin-left: 20rpx;
+		margin-right:  20rpx;
 	}	
-	.cp {
+	.CompanyPic {
 		border-radius: 8%;
 		max-width: 100%;
 		max-height: 100%;
 		height: 440rpx;
 	    width: 310rpx;
 		margin-top: 40rpx;
-		margin-right:  20rpx;
+		margin-left: 20rpx;
 	}
 	
 	.list{

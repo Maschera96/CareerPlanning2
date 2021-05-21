@@ -1,0 +1,327 @@
+
+.content{
+		background-color: #FFFFFF;
+}
+.avatar {
+		font-variant: small-caps;
+		margin-left: 120rpx;
+		padding: 0;
+		display: -webkit-inline-box;
+		display: -webkit-inline-flex;
+		display: inline-flex;
+		text-align: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		background-color: #ccc;
+		color: #ffffff;
+		white-space: nowrap;
+		position: relative;
+		width: 128rpx;
+		height: 128rpx;
+		background-size: cover;
+		background-position: center;
+		vertical-align: middle;
+		font-size: 2.5em;
+		content: "\e71c";
+}
+.tag {
+		width: 36%;
+		height:36%;
+		font-size: 25rpx; 
+		font-weight: 500;
+		vertical-align: middle;
+		margin-top: 90rpx;
+		display: -webkit-inline-box;
+		display: -webkit-inline-flex;
+		display: inline-flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		box-sizing: border-box;
+		white-space: nowrap;
+		border: 5rpx solid #f1f1f1;
+		border-radius: 200rpx;
+		position: absolute;
+		top: -10rpx;
+		right: -10rpx;
+		padding: 0rpx 16rpx;
+		color: #ffffff;
+}
+.colum{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		margin-left: 30rpx;
+}
+.colum3{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		margin-left: 30rpx;
+		margin-top: 45rpx;
+}
+.colum1{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		width: 70%;
+}
+.colum2{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		margin-top: 45rpx;
+}
+.ro{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		margin-top: 15rpx;
+}
+.content-ro1{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		margin-top: 15rpx;
+		padding: 0rpx 50rpx 0rpx 10rpx;
+}
+.content-ro2{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
+		-webkit-box-pack: end;
+		-webkit-justify-content: flex-end;
+		        justify-content: flex-end;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		margin-top: 15rpx;
+		padding: 0rpx 50rpx 0rpx 10rpx;
+}
+.ro1{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		padding: 0rpx 20rpx;
+}
+.card {
+		display: block;
+		overflow: hidden;
+		display: block;
+		background-color: #ffffff;
+		overflow: hidden;
+		border-radius: 10rpx;
+		width: 95%;
+		margin-top: 30rpx;
+}
+.basicinfo{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.icon{
+		border:3px solid #ff8735;
+		border-radius:50%;
+		background-color: #ff8735;
+		height: 120rpx;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		padding: 10rpx 15rpx 20rpx 15rpx;
+}
+.college_icon{
+		max-width: 100%;
+		max-height: 100%;
+		width: 80rpx;
+		height: 80rpx;
+}
+.phone_icon{
+		width: 40rpx;
+		height: 40rpx;
+}
+.introdution{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		padding-left: 10rpx;
+		padding-top: 25rpx;
+}
+.end{
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		margin-top: 40rpx;
+		margin-bottom: 40rpx;
+}
+.buto{
+		margin-left: 30%;
+		width: 40%;
+}
+.text-name {
+		font-size: 55rpx;
+		font-weight:500;
+		color: #000000;
+}
+.text-intro{
+		font-size: 30rpx;
+		font-weight:200rpx;
+		color: #000000;
+}
+.text-subhead{
+		font-size: 35rpx;
+		font-weight: 600;
+}
+.text-subhead_{
+		font-size: 35rpx;
+		font-weight: 600;
+		margin-left: 30rpx;
+		margin-bottom: 30rpx;
+}
+.text-introtion{
+		color: #000000;
+		font-size: 30rpx;
+		margin-top: 5rpx;
+}
+.text-introtion1{
+		color: #000000;
+		font-size: 30rpx;
+		margin-left: 15rpx;
+}
+.text-introtion2{
+		color: #000000;
+		font-size: 30rpx;
+		margin-top: 25rpx;
+}
+.text-introtion3{
+		color: #000000;
+		font-size: 30rpx;
+		margin-top: 15rpx;
+}
+.text-university{
+		font-size: 33rpx;
+		font-weight: 600;
+}
+@font-face {
+  font-family: 'iconfont';  /* project id 1467537 */
+  src: url('//at.alicdn.com/t/font_1467537_r7yf0eeh7od.eot');
+  src: url('//at.alicdn.com/t/font_1467537_r7yf0eeh7od.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1467537_r7yf0eeh7od.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1467537_r7yf0eeh7od.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1467537_r7yf0eeh7od.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1467537_r7yf0eeh7od.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconxuexiao1:before {
+  content: "\e888";
+}
+.icongen:before {
+  content: "\e614";
+}
+.icondianhua:before {
+  content: "\e60d";
+}
+.iconzuobiao:before {
+  content: "\e607";
+}
+.iconjianli:before {
+  content: "\e613";
+}
+.iconGroupCopy:before {
+  content: "\e653";
+}
+.icongongsi:before {
+  content: "\e60b";
+}
+.iconwodeshoucang:before {
+  content: "\e611";
+}
+

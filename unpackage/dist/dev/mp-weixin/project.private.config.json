@@ -1,0 +1,35 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/index/company/company_details/company_details",
+          "pathName": "pages/index/company/company_details/company_details",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/mine/resume/editResume",
+          "pathName": "pages/mine/resume/editResume",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/planning/adjustPlanning",
+          "pathName": "pages/index/planning/adjustPlanning",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

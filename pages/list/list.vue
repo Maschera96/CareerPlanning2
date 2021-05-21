@@ -1,23 +1,30 @@
 <template>
-	<view class="content">
+	<view>
 		<view class="top-image">
-			<image class="offer" src="../../static/TIM图片202003101605361.jpg"></image>
+			<image class="offer" src="cloud://zygh-test-wn16v.7a79-zygh-test-wn16v-1301651483/title.jpg"></image>
 		</view>
+		
+		<view>
+			<button class="fab cu-btn bg-blue round shadow cuIcon-add" @tap="gotonew()"></button>
+		</view>
+		
 		<view class="uni-list">
-			<view v-for="(value,index) in listData" :key="index" @click="gotoarticle(value._id)">
+			<view v-for="(value,index) in listData" :key="index" @tap="gotoarticle(value._id,value.title,value.type)">
 				<!-- <navigator :url="'../article_details/article_details?id='+value._id"> -->
 				<view class="list-body" >
 					<view class="uni-media-list-text-top">来自话题：{{value.type}}</view>
 					<view class="uni-media-list-text-center">{{value.title}}</view>
 					<view class="uni-media-list-text-bottom">
-						<view>{{value.article_follows_count}}收藏</view>
+						<view>{{value.follows}}收藏</view>
 					</view>	
 				</view>
 				<view class="line"></view>     
 				<!-- </navigator> -->
 			</view>
 		</view>
-	</view>
+		
+		<view id="j_page" class="mybottom"></view>
+	</view> 
 </template>
 
 <script>
@@ -29,42 +36,67 @@
             }
         },
 		
-        onLoad:function(options){
-			let th=this;
+        onShow:function(options){
 			
-			/* th.setData({
-			  artId:options.artId
-			}) */
+			let th=this;
 			
 			wx.cloud.init()
 			const db = wx.cloud.database();
-			const _ = db.command;
 			wx.cloud.callFunction({
 			  name:'article',
 			  data:{
 			    $url:'articleList',
 			  }
 			}).then(res => {
+				console.log(res.result);
 				th.listData=res.result.data; 
-				console.log(th.listData);
 			}).catch(err => {
-			  console.error(err)
+			  console.error(err) 
 			})
 		},
 		
+		
+		
         methods: {
-			gotoarticle:function(artId){
+			gotoarticle:function(artId,title,type){
 				uni.navigateTo({
-					url:'../article_details/article_details?artId='+artId
+					url:'/pages/list/article_details/article_details?artId='+artId
 				})
-			}
+
+				wx.cloud.callFunction({
+					name:'myHistoryAdd',
+					data:{
+						foreign_id:artId,
+						type:'article',
+						data:{
+							title:title,
+							type:type,
+							Id:artId
+						}
+					}   
+				}).then(res =>{  
+					console.log(res)      
+				}).catch(err =>{
+					console.error(err) 
+				})
+			},
+
+
+
+			gotonew:function(){
+				uni.navigateTo({
+					url:'/pages/list/new_article/new_article'
+				})
+			},
+			
 				     
         }
     };
 </script>
 <style>
-	.content{
-		background-color: #FFFFFF;
+	.mybottom{
+		height: 1rpx;
+		bottom: 0rpx;
 	}
 	.uni-list{
 		margin-top: 30rpx;
@@ -76,7 +108,7 @@
 		margin-top: 10rpx;
 	}
 	.line{
-		height:2rpx;
+		height:3rpx;
 		margin-left: 30rpx;
 		margin-right: 30rpx;
 		border-width: 0rpx;
@@ -109,8 +141,11 @@
 	}
 	
 	.top-image{
-		display: flex;
-		justify-content: space-around;
+		width: 700rpx;
+		margin-top: 20rpx;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 30rpx;	
 	}
 	
 	.offer{
@@ -118,4 +153,14 @@
 		height:280rpx;
 		width: 730rpx;
 	}
+	
+	.fab{
+		position: fixed;
+		width:100rpx;
+		height:100rpx;
+		bottom: 90rpx;
+		right: 60rpx;
+		font-size: 50rpx;
+	}
+	
 </style>

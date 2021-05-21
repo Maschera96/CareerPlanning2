@@ -8,90 +8,145 @@
 			}
 		},			
 		{
-					"path": "pages/college/college_details",
-					"style": {
-						"navigationBarTitleText": "学院详情"
-					}
-				},		
+			"path": "pages/index/college/college_details",
+			"style": {
+				"navigationBarTitleText": "学院详情"
+			}
+		},
 		{
-				"path": "pages/company_details/company_details",
+			"path": "pages/index/planning/planning",
+			"style": {
+				"navigationBarTitleText": "个人规划"
+			}
+		},
+        {
+			"path": "pages/index/planning/adjustPlanning",
+			"style": {
+				"navigationBarTitleText": "调整计划"
+			}
+		},	
+		{
+			"path": "pages/index/company/company_details/company_details",
 			"style": {
 				"navigationBarTitleText": "企业详情"
 			}
 		},
-		
-		
-
-	// 	{
-	// 				"path": "pages/company/company",
-	// 			"style": {
-	// 				"navigationBarTitleText": "企业"
-	// 			}
-	// 		},
-		
-	
-	// {
-	// 	"path":"pages/index/temporary",
-	// 	"style":{
-	// 		"navigationBarTitleText":"临时测试"
-				
-	// 		}
-	// 	}
-	// ,
-	{
-	    "path" : "pages/list/list",
-	    "style" : {
-			"navigationBarTitleText": "文章"
-		}
-	},
-	{
-		"path":"pages/mine/mine",
-		"style":{
-			"navigationBarTitleText":"我的"
-		}
-	},
-    {
-			"path":"pages/article_details/article_details",
+		{
+			"path" : "pages/list/list",
+			"style" : {
+				"navigationBarTitleText": "文章"
+			}
+		},
+		{
+			"path":"pages/mine/mine",
+			"style":{
+				"navigationBarTitleText":"我的"
+				// "enablePullDownRefresh": false
+			}
+		},
+		{
+			"path":"pages/mine/myArticles/myArticles",
+			"style":{
+				"navigationBarTitleText":"收藏文章"
+			}
+		},
+		{
+			"path":"pages/mine/myPublish/myPublish",
+			"style":{
+				"navigationBarTitleText":"我的发布"
+			}
+		},
+		{
+			"path":"pages/mine/resume/resume",
+			"style":{
+				"navigationBarTitleText":"我的简历"
+			}
+		},
+		{
+			"path":"pages/list/article_details/article_details",
 			"style":{
 				"navigationBarTitleText":"文章详情"
 			}
-	},
-    {
-            "path" : "pages/attitude/attitude",
-            "style" : {
+		},
+		{
+			"path":"pages/list/new_article/new_article",
+			"style":{
+				"navigationBarTitleText":"发布文章"
+			}
+		},
+		{
+			"path" : "pages/list/attitude/attitude",
+			"style" : {
 				"navigationBarTitleText":"评论"
 			}
-    },
-	{
-            "path" : "pages/jobbrowse/jobbrowse",
-            "style" : {
+		},
+		{
+			"path" : "pages/index/company/company_details/jobbrowse/jobbrowse",
+			"style" : {
 				"navigationBarTitleText":"岗位浏览"
 			}
-    },
-	{
-	        "path" : "pages/position_details/position_details",
-	        "style" : {
+		},
+		{
+			"path" : "pages/index/company/company_details/jobbrowse/position_details/position_details",
+			"style" : {
 				"navigationBarTitleText":"岗位详情"
 			}
-	},
-	{
-            "path" : "pages/company/company",
-            "style" : {
+		},
+		{
+			"path" : "pages/index/company/company",
+			"style" : {
 				"navigationBarTitleText":"企业"
 			}
-    },
-	{
-		    "path" : "pages/college/college",
-		    "style" : {
+		},
+		{
+			"path" : "pages/index/college/college",
+			"style" : {
 				"navigationBarTitleText":"学院"
 			}
-	}
+		},
+        {
+            "path" : "pages/mine/history/history",
+            "style" : {
+				"navigationBarTitleText":"我的足迹"
+			}
+        },
+        {
+			"path" : "pages/mine/resume/editResume",
+			"style" : {
+				"navigationBarTitleText":"编辑简历"
+			}
+		},
+		{
+			"path" : "pages/mine/resume/newResume",
+			"style" : {
+				"navigationBarTitleText":"新增简历"
+			}
+		},
+		{
+			"path" : "pages/mine/resume/sendResume",
+			"style" : {
+				"navigationBarTitleText":"投递简历"
+			}
+		},
+        {
+            "path" : "pages/index/course/course",
+			"style" : {
+				"navigationBarTitleText":"课程"
+           }
+        },
+        {
+            "path" : "pages/index/books/books",
+            "style" : {
+				"navigationBarTitleText":"书籍"
+			}
+        }
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "职业规划",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#F8F8F8"
+		// "enablePullDownRefresh": true
 	},
 	
 	"tabBar":{
