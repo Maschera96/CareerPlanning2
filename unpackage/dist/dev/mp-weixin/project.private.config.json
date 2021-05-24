@@ -27,6 +27,13 @@
         {
           "name": "pages/index/planning/adjustPlanning",
           "pathName": "pages/index/planning/adjustPlanning",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/company/company_details/jobbrowse/position_details/position_details",
+          "pathName": "pages/index/company/company_details/jobbrowse/position_details/position_details",
+          "query": "job_id=a8ed1dc099154ca5afe64f7f06332d2b",
           "scene": null
         }
       ]

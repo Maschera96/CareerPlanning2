@@ -90,7 +90,10 @@
 			"path" : "pages/index/company/company_details/jobbrowse/position_details/position_details",
 			"style" : {
 				"navigationBarTitleText":"岗位详情"
-			}
+			},
+			"usingComponents": {
+			    "mp-dialog": "weui-miniprogram/dialog/dialog"
+			  }
 		},
 		{
 			"path" : "pages/index/company/company",

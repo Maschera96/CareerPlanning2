@@ -72,29 +72,34 @@ page{background-color: #FFFFFF;}
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
 	        flex-direction: column;
-	height:auto;
+	height:190rpx;
 	width:500rpx;
+	overflow: hidden;
 	margin-bottom: 10rpx;
 	margin-top: 30rpx;
 }
 .text-top{
+	-webkit-flex-shrink: 0;
+	        flex-shrink: 0;
 	font-size: 35rpx;
 	font-weight:600;
 	margin-bottom: 5rpx;
 	margin-left:30rpx;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .text-bottom{
-	display:-webkit-box;
-	display:-webkit-flex;
-	display:flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	        flex-direction: column;
+	-webkit-flex-shrink: 0;
+	        flex-shrink: 0;
 	font-size: 25rpx;
 	color: gray;
 	margin-left:30rpx;
 	margin-bottom: 20rpx;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
 }
 .search{
 	width: 200rpx;

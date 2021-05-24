@@ -3754,11 +3754,17 @@ scroll-view.cu-steps .cu-item {
 	font-size: 40rpx;
 	font-weight: bold;
 	color: #5f656c;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .course_summary {
 	color: #5b5b5b;
 	margin-top: 10rpx;
 	font-size: 32rpx;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .course_request1{
 	color: #e1945f;
@@ -3804,6 +3810,17 @@ scroll-view.cu-steps .cu-item {
 	width: 160rpx;
 	height: 200rpx;
 	background-color: #eeeeee;
+	-webkit-flex-shrink: 0;
+	        flex-shrink: 0;
+}
+.bookItem{
+	margin: 20rpx 0rpx;
+}
+.bookContent{
+	-webkit-flex-shrink: 0;
+	        flex-shrink: 0;
+	width: 70%;
+	margin-left: 40rpx;
 }
 .buto {
 	width: 120rpx;
@@ -3838,7 +3855,7 @@ scroll-view.cu-steps .cu-item {
 	        justify-content: space-between;
 }
 .text-position {
-	font-size: 46rpx;
+	font-size: 40rpx;
 	font-weight: 600;
 }
 .text-char {
@@ -3850,7 +3867,9 @@ scroll-view.cu-steps .cu-item {
 	font-weight: 400;
 	font-size: 50rpx;
 	font-weight: 500;
-	margin-left: 70rpx;
+	/* margin-left: 70rpx; */
+	/* width: 30%; */
+	white-space: nowrap;
 }
 .text-introtion {
 	color: #AAAAAA;
@@ -3887,6 +3906,9 @@ scroll-view.cu-steps .cu-item {
 .text-title_ {
 	font-size: 38rpx;
 	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .mybottom{
 	margin-bottom: 120rpx;

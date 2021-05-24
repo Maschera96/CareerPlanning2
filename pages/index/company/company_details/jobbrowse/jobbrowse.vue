@@ -38,7 +38,7 @@
 						</label> 
 					</checkbox-group>
 				</view>
-				<view class="more" @tap="gotomorecities()">更多</view>
+				<!-- <view class="more" @tap="gotomorecities()">更多</view> -->
 			</view>	
 		</view>
 		
@@ -76,23 +76,15 @@
 					},
 					{
 						value:"2",
-						name:"产品",
+						name:"销售",
 					},
 					{
 						value:"3",
-						name:"设计"
+						name:"管理"
 					},
 					{
 						value:"4",
 						name:"运营"
-					},
-					{
-						value:"5",
-						name:"销售"
-					},
-					{
-						value:"6",
-						name:"市场"
 					}
 				],
 				
@@ -116,11 +108,7 @@
 					{
 						value:"11",
 						cityname:"深圳"
-					},
-					{
-						value:"12",
-						cityname:"成都"
-					},
+					}
 						
 				]
 				
@@ -327,26 +315,34 @@
 	.list-body{
 		display: flex;
 		flex-direction: column;
-		height:auto;
+		height:190rpx;
 		width:500rpx;
+		overflow: hidden;
 		margin-bottom: 10rpx;
 		margin-top: 30rpx;
 	}
 	
 	.text-top{
+		flex-shrink: 0;
 		font-size: 35rpx;
 		font-weight:600;
 		margin-bottom: 5rpx;
 		margin-left:30rpx;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	
 	.text-bottom{
-		display:flex;
-		flex-direction: column;
+		flex-shrink: 0;
 		font-size: 25rpx;
 		color: gray;
 		margin-left:30rpx;
 		margin-bottom: 20rpx;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
 	}
 	
 	.search{

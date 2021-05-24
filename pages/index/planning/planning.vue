@@ -95,7 +95,8 @@
 
 			}
 		},
-		onShow: function() {
+		
+		onLoad: function(){
 			//调用未完成目标数据
 			// const no_finished = [{
 			// 	type: 'book',
@@ -141,6 +142,10 @@
 			// 	key: 'finished',
 			// 	data: finished
 			// })
+		},
+		
+		onShow: function() {
+			
 			
 			const unfiniPro = wx.getStorage({key: 'no_finished'}).then((res) => {
 				return this.updateNoFinishTargets(res.data)

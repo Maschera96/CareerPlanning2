@@ -47,7 +47,19 @@
 			}
 		},
 		
-		onLoad:function(option){
+		onLoad:function(e){
+			if(e.type){
+				console.log(e);
+				this.detail = e.title
+				switch (e.type){
+					case 'book':
+						this.index = '0';
+						break;
+					case 'lesson':
+						this.index = '1';
+						break;
+				}
+			}
 		},
 		methods:{
 			PickerChange(e) {
@@ -88,6 +100,7 @@
 					})
 					return res.data
 				}).then((res) => {
+					console.log('set start',res);
 					wx.setStorage({
 						key: 'no_finished',
 						data: res

@@ -39,15 +39,15 @@
 
 		<!-- 校内学习 -->
 		<text class="text-subhead">校内学习</text>
-		<view class="cu-item" style="display: flex; flex-direction: column;" v-for="(item,index) in 4" :key="index">
-			<view class="course_item">
-				<view class="level">A类</view>
+		<view class="cu-item" style="display: flex; flex-direction: column;" v-for="(item,index) in job_.courses" :key="index">
+			<view class="course_item" @tap="myDialog('lesson',item.courseName)">
+				<view class="level">{{item.indexCode[0]}}类</view>
 				<view class="courseone">
-					<view class="course_name">计算机组成原理</view>
-					<view class="course_summary">计算机的基本组成原理和内部工作机制</view>
+					<view class="course_name">{{item.courseName}}</view>
+					<view class="course_summary">{{item.collegeName}}</view>
 				</view>
-				<view class="course_request1" :style="index%2?'display:none;':''">必修</view>
-				<view class="course_request2" :style="index%2?'':'display:none;'">选修</view>
+				<view class="course_request1" :style="item.indexCode[0] !== 'A'?'display:none;':''">必修</view>
+				<view class="course_request2" :style="item.indexCode[0] !== 'A'?'':'display:none;'">选修</view>
 			</view>
 		</view>
 
@@ -58,21 +58,13 @@
 		<!-- 书籍学习 -->
 		<text class="text-subhead">书籍学习</text>
 		<view class="cu-list shadow padding mybottom">
-			<view class="cu-item" style="display: flex; flex-direction: column;" v-for="(item,index) in 4" :key="index">
-				<view class="ro" :style="index%2?'display:none;':''">
-					<image class="imag_" src="cloud://zygh-test-wn16v.7a79-zygh-test-wn16v-1301651483/book1.png"></image>
-					<view class="cul margin-left-lg">
-						<text class="text-title_">Go语言实战</text>
-						<text class="text-introtion_">作者: 威廉·肯尼迪</text>
-						<text class="text-introtion_">出版社: 人民邮电出版社</text>
-					</view>
-				</view>
-				<view class="ro" :style="index%2?'':'display:none;'">
-					<image class="imag_" src="cloud://zygh-test-wn16v.7a79-zygh-test-wn16v-1301651483/book2.jpg"></image>
-					<view class="cul margin-left-lg">
-						<text class="text-title_">MongoDB管理与开发精要</text>
-						<text class="text-introtion_">作者: 红丸</text>
-						<text class="text-introtion_">出版社: 机械工业出版社</text>
+			<view class="cu-item" style="display: flex; flex-direction: column;" v-for="(item,index) in job_.books" :key="index">
+				<view class="ro bookItem" @tap="myDialog('book',item.title)">
+					<image class="imag_" :src="item.img"></image>
+					<view class="cul bookContent">
+						<text class="text-title_">{{item.title.split(' ')[0]}}</text>
+						<text class="text-introtion_">作者: {{item.author}}</text>
+						<text class="text-introtion_">出版社: {{item.publish}}</text>
 					</view>
 				</view>
 			</view>
@@ -95,6 +87,28 @@
 			<button :class="collect?'btn_2':'btn_1'" @tap='Collect'>立即收藏</button>
 			<button class="btn_2" @tap="Issue" style="width: 60%; margin-left: 20rpx;" :disabled="issue?true:false">投递简历</button>
 		</view>
+		
+		<!-- 弹窗层 -->
+		<view class="cu-modal" :class="modalName?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">注意</view>
+					<view class="action" @tap="modalName = false">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<view class="padding-xl">
+					确定要将 {{modalTitle}} 添加到“我的规划”中吗？
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="modalName = false">取消</button>
+						<button class="cu-btn bg-green margin-left" @tap="addToPlan()">确定</button>
+		
+					</view>
+				</view>
+			</view>
+		</view>
 
 	</view>
 </template>
@@ -108,7 +122,10 @@
 				job_: {},
 				collect: null,
 				issue: null,
-				id: null
+				id: null,
+				modalName: null,
+				modalType: null,
+				modalTitle: null
 			}
 		},
 		onLoad: function(option) {
@@ -162,6 +179,22 @@
 						console.error(err)
 					})
 				}
+			},
+			myDialog(type,title){
+				if(type === 'lesson'){
+					this.modalType = 'lesson'
+					this.modalTitle = title
+				}else if(type === 'book'){
+					this.modalType = 'book'
+					this.modalTitle = title.split(' ')[0] 
+				}
+				this.modalName = true
+			},
+			addToPlan(){
+				console.log(this.modalType,this.modalTitle);
+				uni.navigateTo({
+					url: `/pages/index/planning/adjustPlanning?type=${this.modalType}&title=${this.modalTitle}`,
+				})
 			},
 			Issue() {
 				uni.navigateTo({
@@ -217,12 +250,18 @@
 		font-size: 40rpx;
 		font-weight: bold;
 		color: #5f656c;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.course_summary {
 		color: #5b5b5b;
 		margin-top: 10rpx;
 		font-size: 32rpx;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	
 	.course_request1{
@@ -260,6 +299,18 @@
 		width: 160rpx;
 		height: 200rpx;
 		background-color: #eeeeee;
+		flex-shrink: 0;
+		
+	}
+	
+	.bookItem{
+		margin: 20rpx 0rpx;
+	}
+	
+	.bookContent{
+		flex-shrink: 0;
+		width: 70%;
+		margin-left: 40rpx;
 	}
 
 	.buto {
@@ -291,7 +342,7 @@
 	}
 
 	.text-position {
-		font-size: 46rpx;
+		font-size: 40rpx;
 		font-weight: 600;
 	}
 
@@ -305,7 +356,9 @@
 		font-weight: 400;
 		font-size: 50rpx;
 		font-weight: 500;
-		margin-left: 70rpx;
+		/* margin-left: 70rpx; */
+		/* width: 30%; */
+		white-space: nowrap;
 	}
 
 	.text-introtion {
@@ -349,6 +402,9 @@
 	.text-title_ {
 		font-size: 38rpx;
 		font-weight: 500;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.mybottom{

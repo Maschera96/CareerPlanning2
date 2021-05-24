@@ -14,9 +14,9 @@
 				</view>
 				<view class="culll">
 						<open-data type="userNickName" lang="zh_CN" class="name"></open-data>
-						<text class="intro">3年工作经验&thinsp;/&thinsp;本科&thinsp;/&thinsp;20岁</text>
+						<!-- <text class="intro">3年工作经验&thinsp;/&thinsp;本科&thinsp;/&thinsp;20岁</text> -->
 				</view>
-				<button class="cu-btn round shadow buto" @tap="perfect" style="background-color: #ffff00; ">待完善>个人资料</button>
+				<!-- <button class="cu-btn round shadow buto" @tap="perfect" style="background-color: #ffff00; ">待完善>个人资料</button> -->
 			</view>	
 	    </view>	
 		
