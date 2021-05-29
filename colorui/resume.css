@@ -153,14 +153,18 @@
 	}
 	
 	.end{
+		display: flex;
 		justify-content: center;
 		align-items: center;
+		flex-direction: row;
 		margin-top: 40rpx;
 		margin-bottom: 40rpx;
 	}
 	
 	.buto{
-		margin-left: 30%;
+		margin: 0rpx!important;
+		margin-left: auto !important;
+		margin-right: auto !important;
 		width: 40%;
 	}
 	

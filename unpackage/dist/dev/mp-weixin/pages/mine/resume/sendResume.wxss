@@ -227,17 +227,26 @@
 		padding-top: 25rpx;
 }
 .end{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
 		-webkit-box-pack: center;
 		-webkit-justify-content: center;
 		        justify-content: center;
 		-webkit-box-align: center;
 		-webkit-align-items: center;
 		        align-items: center;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row;
 		margin-top: 40rpx;
 		margin-bottom: 40rpx;
 }
 .buto{
-		margin-left: 30%;
+		margin: 0rpx!important;
+		margin-left: auto !important;
+		margin-right: auto !important;
 		width: 40%;
 }
 .text-name {

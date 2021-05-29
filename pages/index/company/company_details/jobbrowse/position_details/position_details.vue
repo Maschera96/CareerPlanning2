@@ -85,7 +85,7 @@
 		<!-- 按钮层 -->
 		<view class="bottom padding">
 			<button :class="collect?'btn_2':'btn_1'" @tap='Collect'>立即收藏</button>
-			<button class="btn_2" @tap="Issue" style="width: 60%; margin-left: 20rpx;" :disabled="issue?true:false">投递简历</button>
+			<button class="btn_2" @tap="Issue" style="width: 60%; margin-left: 20rpx;">投递简历</button>
 		</view>
 		
 		<!-- 弹窗层 -->
@@ -117,6 +117,7 @@
 	export default {
 		data() {
 			return {
+				indexCode: null,
 				posId: null,
 				comId: null,
 				job_: {},
@@ -132,6 +133,7 @@
 			console.log(option.job_id);
 			let [indexCode,openId] = [option.job_id,'abc123']
 			console.log(indexCode);
+			this.indexCode = indexCode
 			uni.request({ 
 				url: `http://1.15.175.248:8002/job/get/${indexCode}/${openId}`,
 				success: (res) => {
@@ -198,7 +200,7 @@
 			},
 			Issue() {
 				uni.navigateTo({
-					url: "../resume/sendResume?posId=" + this.posId
+					url: `/pages/mine/resume/resume?jobId=${this.indexCode}`
 				})
 			}
 		}

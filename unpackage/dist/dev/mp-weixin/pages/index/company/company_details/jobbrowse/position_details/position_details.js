@@ -277,6 +277,7 @@ var _default =
 {
   data: function data() {
     return {
+      indexCode: null,
       posId: null,
       comId: null,
       job_: {},
@@ -292,6 +293,7 @@ var _default =
     console.log(option.job_id);var _ref =
     [option.job_id, 'abc123'],indexCode = _ref[0],openId = _ref[1];
     console.log(indexCode);
+    this.indexCode = indexCode;
     uni.request({
       url: "http://1.15.175.248:8002/job/get/".concat(indexCode, "/").concat(openId),
       success: function success(res) {
@@ -358,7 +360,7 @@ var _default =
     },
     Issue: function Issue() {
       uni.navigateTo({
-        url: "../resume/sendResume?posId=" + this.posId });
+        url: "/pages/mine/resume/resume?jobId=".concat(this.indexCode) });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

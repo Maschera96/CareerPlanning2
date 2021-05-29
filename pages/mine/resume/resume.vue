@@ -120,7 +120,8 @@
 			
 			<!-- EDIT按钮 -->
 			<view class="end">
-				<button class="cu-btn bg-blue shadow-blur buto" @click="gotoEdit()">EDIT</button>
+				<button class="buto cu-btn bg-blue shadow-blur" @click="gotoEdit()">EDIT</button>
+				<button v-if="jobId" class="buto cu-btn bg-orange shadow-blur" @click="getResume()">SEND</button>
 			</view>
 		</view>
 	</view>
@@ -133,11 +134,14 @@
 			return{
 				status: false,
 				resId:null,
-			    resume:{}
+			    resume:{},
+				jobId: null,
 		    }
 		},
 		
 		onLoad:function(e){
+			if(e.jobId){this.jobId = e.jobId}
+			
 			wx.getStorage({
 				key: 'openId',
 			}).then((res) => {
@@ -167,6 +171,34 @@
 			gotoNew: function(){
 				uni.redirectTo({
 					url:"newResume"
+				})
+			},
+			gotoSend: async function(){
+				console.log(this.jobId);
+				console.log(this.resume);
+				let sendResume = JSON.parse(JSON.stringify(this.resume))
+				let openId = await wx.getStorage({
+					key: 'openId'
+				}).then((res) => {return res.data})
+				sendResume.openId = openId
+				console.log(sendResume);
+				// return
+				await uni.request({
+					url: `http://1.15.175.248:8002/job/${this.jobId}/send_resume`,
+					method: 'POST',
+					header: {
+						'Content-Type': 'application/json'
+					},
+					data: this.resume
+				})
+				console.log('投递完毕');
+			},
+			getResume: function(){
+				uni.request({
+					url: `http://1.15.175.248:8002/job/${this.jobId}/get/resume/1/5`,
+					success: (res) => {
+						console.log(res);
+					}
 				})
 			}
 		}
