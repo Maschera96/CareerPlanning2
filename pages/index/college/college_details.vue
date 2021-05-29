@@ -3,7 +3,7 @@
 		
 		<!--头顶图片 -->
 		<view class="head">
-			<image class="head_pic" src=../../static/college_details/HDUGate.jpg></image>
+			<image class="head_pic" src=/static/college_details/HDUGate.jpg></image>
 		</view>
 		
 		<!--学院介绍 -->
@@ -13,7 +13,7 @@
 				<view class="intro_details">1980年&nbsp;&nbsp;|&nbsp;&nbsp;教职工180人&nbsp;&nbsp;|&nbsp;&nbsp;三个专业</view>
 			</view>
 			<view class="intro_logo">
-				<image class="collge_logo" src=../../static/college_details/badge.png></image>
+				<image class="collge_logo" src=/static/college_details/badge.png></image>
 			</view>	
 		</view>
 		
@@ -88,7 +88,7 @@
 			</view>		
 			
 			<view class="tutor_item">
-				<image class="tutor_logo" src="../../static/college_details/people_1.png"></image>
+				<image class="tutor_logo" src="/static/college_details/people_1.png"></image>
 				<view class="tutor_intro">
 					<view class="tutor_name">孔万增</view>
 					<view class="tutor_positiom">博士、教授、博士生导师</view>
@@ -96,7 +96,7 @@
 				</view>
 			</view>
 			<view class="tutor_item">
-				<image class="tutor_logo" src="../../static/college_details/people_2.jpg"></image>
+				<image class="tutor_logo" src="/static/college_details/people_2.jpg"></image>
 				<view class="tutor_intro">
 					<view class="tutor_name">张建辉</view>
 					<view class="tutor_positiom">博士、教授、博士生导师</view>
@@ -104,7 +104,7 @@
 				</view>
 			</view>
 			<view class="tutor_item">
-				<image class="tutor_logo" src="../../static/college_details/people_1.png"></image>
+				<image class="tutor_logo" src="/static/college_details/people_1.png"></image>
 				<view class="tutor_intro">
 					<view class="tutor_name">孔万增</view>
 					<view class="tutor_positiom">博士、教授、博士生导师</view>
@@ -112,7 +112,7 @@
 				</view>
 			</view>
 			<view class="tutor_item">
-				<image class="tutor_logo" src="../../static/college_details/people_2.jpg"></image>
+				<image class="tutor_logo" src="/static/college_details/people_2.jpg"></image>
 				<view class="tutor_intro">
 					<view class="tutor_name">张建辉</view>
 					<view class="tutor_positiom">博士、教授、博士生导师</view>
@@ -135,18 +135,9 @@
 			
 			}
 		},
-		onLoad:function(e){
-			let th=this;
-			uni.request({
-				url:'http://zygh.store/api/college/学院id/teachers ',
-				success:function(res){
-					th.listData=res.data.data.data;
-					console.log(th.listData);
-					}
-				})
+		onLoad:function(){
 		},
 		methods: {
-	
 		}
 	}
 </script>

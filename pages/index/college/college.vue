@@ -2,7 +2,7 @@
 	<view class="cul">
 		
 		<view class="imag">
-			<view class="bg-img" style="background-image: url(../../static/college_details/HDUGate.jpg);
+			<view class="bg-img" style="background-image: url(/static/college_details/HDUGate.jpg);
 			height: 300rpx;width: 100%; border-radius: 30rpx 30rpx 30rpx 30rpx;">
 			</view>
 		</view>
@@ -13,7 +13,7 @@
 			v-for="(item,index) in college" :key="index" @click="colle">
 				<view class="ro">
 					<image style="width: 230rpx; height: 180rpx; margin-top: 30rpx; margin-bottom: 30rpx;" 
-					src="../../static/college_details/badge.png"></image>
+					src="/static/college_details/badge.png"></image>
 					<view class="cul margin-left-lg">
 						<text class="text-title">{{item.name}}</text>
 						<text class="text-introtion">{{item.major}}</text>	
@@ -28,7 +28,10 @@
 	export default{
 		data(){
 			return{
-				college:[]
+				college:[{
+					'name': '计算机学院',
+					'major': '软件工程'
+				}]
 			}
 		},
 		onLoad:function(e) {

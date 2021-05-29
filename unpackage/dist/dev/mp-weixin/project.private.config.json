@@ -41,6 +41,12 @@
           "pathName": "pages/mine/resume/resume",
           "query": "jobId=9ed6ace21e8744b3991968d08cf39d5f",
           "scene": null
+        },
+        {
+          "name": "pages/index/college/college",
+          "pathName": "pages/index/college/college",
+          "query": "",
+          "scene": null
         }
       ]
     }

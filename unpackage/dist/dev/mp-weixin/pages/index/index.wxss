@@ -1,5 +1,46 @@
 
-.content{
+.cover {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: rgba(0, 0, 0, 0.4);
+	width: 100%;
+	/*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+	height: 100%;
+	/* display:none; */
+	z-Index: 100;
+}
+.searchBox {
+	width: 100%;
+	background-color: #FFFFFF;
+	padding: 20rpx 20rpx;
+	position: absolute;
+	top: 104rpx;
+	border-radius: 0rpx 0rpx 20rpx 20rpx;
+	z-index: 200;
+}
+.searchItem {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 80rpx;
+}
+.itemType .itemPlace {
+	width: 20%;
+}
+.itemName {
+	width: 40%;
+}
+.content {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -9,7 +50,7 @@
 	        flex-direction: column;
 	background-color: #FFFFFF;
 }
-.head{
+.head {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -17,40 +58,42 @@
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	        flex-direction: row;
-	-webkit-justify-content:space-around;
-	        justify-content:space-around;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	z-index: 200;
+	background-color: #FFFFFF;
 }
 .cu-bar {
-	width:680rpx;
-	font-size:20rpx ;
+	width: 680rpx;
+	font-size: 20rpx;
 	margin-top: 15rpx;
 }
-.action{
+.action {
 	width: 120rpx;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	        flex-direction: row;
 	font-size: 100rpx;
-	-webkit-justify-content:space-around;
-	        justify-content:space-around;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
 	margin-top: -20rpx;
 }
-.icon-phone{
+.icon-phone {
 	margin-top: 35rpx;
 	margin-right: 20rpx;
 }
-.country{
+.country {
 	font-size: 30rpx;
 	font-weight: 600;
 	letter-spacing: 2rpx;
 }
 .card {
-	display:-webkit-box;
-	display:-webkit-flex;
-	display:flex;
-	-webkit-justify-content:space-around;
-	        justify-content:space-around;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
 }
 .cardp {
 	height: 250rpx;
@@ -60,35 +103,35 @@
 	margin-right: auto;
 	margin-bottom: 30rpx;
 }
-.course{
-	border:3px solid #51c3b9;
-	border-radius:50%;
+.course {
+	border: 3px solid #51c3b9;
+	border-radius: 50%;
 	background-color: #51c3b9;
 	width: 90rpx;
 	height: 90rpx;
 }
-.college{
-	border:3px solid #9835ff;
-	border-radius:50%;
+.college {
+	border: 3px solid #9835ff;
+	border-radius: 50%;
 	background-color: #9835ff;
 	width: 90rpx;
 	height: 90rpx;
 }
-.book{
-	border:3px solid #ff3572;
-	border-radius:50%;
+.book {
+	border: 3px solid #ff3572;
+	border-radius: 50%;
 	background-color: #ff3572;
 	width: 90rpx;
 	height: 90rpx;
 }
-.competition{
-	border:3px solid #ff8735;
-	border-radius:50%;
+.competition {
+	border: 3px solid #ff8735;
+	border-radius: 50%;
 	background-color: #ff8735;
 	width: 90rpx;
 	height: 90rpx;
 }
-.course_icon{
+.course_icon {
 	max-width: 100%;
 	max-height: 100%;
 	width: 60rpx;
@@ -96,7 +139,7 @@
 	margin-left: 10rpx;
 	margin-top: 8rpx;
 }
-.college_icon{
+.college_icon {
 	max-width: 100%;
 	max-height: 100%;
 	width: 60rpx;
@@ -104,7 +147,7 @@
 	margin-left: 10rpx;
 	margin-top: 9rpx;
 }
-.book_icon{
+.book_icon {
 	max-width: 100%;
 	max-height: 100%;
 	width: 60rpx;
@@ -112,7 +155,7 @@
 	margin-left: 10rpx;
 	margin-top: 10rpx;
 }
-.competition_icon{
+.competition_icon {
 	max-width: 100%;
 	max-height: 100%;
 	width: 60rpx;
@@ -124,27 +167,27 @@
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
-	-webkit-box-orient:horizontal;
-	-webkit-box-direction:normal;
-	-webkit-flex-direction:row;
-	        flex-direction:row;
-	-webkit-box-align:center;
-	-webkit-align-items:center;
-	        align-items:center;
-	-webkit-justify-content:space-around;
-	        justify-content:space-around;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
 	margin-top: 10rpx;
-	margin-right:  30rpx;
-	margin-left:  30rpx;
+	margin-right: 30rpx;
+	margin-left: 30rpx;
 }
-.text2{
+.text2 {
 	margin-top: 15rpx;
 	font-size: 31rpx;
 	color: #808080;
 	font-weight: 600;
 	letter-spacing: 4rpx;
 }
-.ic{
+.ic {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -158,40 +201,40 @@
 	font-size: 36rpx;
 	color: #8799A3;
 }
-.PlanningCompany {    
-	display: -webkit-box;    
-	display: -webkit-flex;    
+.PlanningCompany {
+	display: -webkit-box;
+	display: -webkit-flex;
 	display: flex;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	        flex-direction: row;
-	-webkit-justify-content:space-around;
-	        justify-content:space-around;
-	height:480rpx;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	height: 480rpx;
 }
 .PlanningPic {
 	border-radius: 8%;
-	max-width: 100%;  
-    max-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 	height: 440rpx;
 	width: 310rpx;
 	margin-top: 40rpx;
-	margin-right:  20rpx;
+	margin-right: 20rpx;
 }
 .CompanyPic {
 	border-radius: 8%;
 	max-width: 100%;
 	max-height: 100%;
 	height: 440rpx;
-    width: 310rpx;
+	width: 310rpx;
 	margin-top: 40rpx;
 	margin-left: 20rpx;
 }
-.list{
+.list {
 	margin-top: 40rpx;
 }
-.about{
+.about {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -200,10 +243,10 @@
 	-webkit-flex-direction: row;
 	        flex-direction: row;
 }
-.company_request{
-	color:#AAAAAA;
+.company_request {
+	color: #AAAAAA;
 }
-.company_logo{
+.company_logo {
 	max-width: 100%;
 	max-height: 100%;
 	height: 100rpx;
@@ -211,29 +254,29 @@
 	margin-left: 40rpx;
 	margin-top: 20rpx;
 }
-.company_salary{
+.company_salary {
 	margin-top: 20rpx;
 	font-size: 30rpx;
-	color:#397af3;
+	color: #397af3;
 }
-.hot_position{
+.hot_position {
 	font-weight: bolder;
 	font-size: 42rpx;
-	letter-spacing:4rpx; 
+	letter-spacing: 4rpx;
 	margin-left: -5rpx;
 }
-.company_position{
+.company_position {
 	font-weight: bold;
 	font-size: 30rpx;
 }
-.infor{
+.infor {
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
-	        flex-direction: column;  
+	        flex-direction: column;
 	margin-top: 35rpx;
 }
-.oneitem{
+.oneitem {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -241,24 +284,24 @@
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	        flex-direction: row;
-	height:130rpx;
+	height: 130rpx;
 }
-.company_request{
+.company_request {
 	margin-top: 10rpx;
 }
-.company_salary{
-	position:absolute;
+.company_salary {
+	position: absolute;
 	left: 650rpx;
 	margin-top: 40rpx;
 }
-.divLine{
+.divLine {
 	background: #edefe7;
-	width: 100%;
+	width: 95%;
 	height: 2rpx;
-	margin-left: 30rpx;
+	margin: 0rpx auto;
 }
-.divLine2{
-	padding:12px 6px 0px 6px;
+.divLine2 {
+	padding: 12px 6px 0px 6px;
 	margin-left: 30rpx;
 	border-left: 10rpx solid #359bff;
 	height: 48rpx;
