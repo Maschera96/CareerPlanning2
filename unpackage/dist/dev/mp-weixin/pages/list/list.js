@@ -97,6 +97,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.listData, function(value, index) {
+    var $orig = _vm.__get_orig(value)
+
+    var g0 = value.createTime.split(" ")
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -159,6 +177,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
 
@@ -168,23 +188,40 @@ var _default =
 
   },
 
-  onShow: function onShow(options) {
+  //       onShow:function(options){
 
-    var th = this;
+  // 	let th=this;
 
-    wx.cloud.init();
-    var db = wx.cloud.database();
-    wx.cloud.callFunction({
-      name: 'article',
-      data: {
-        $url: 'articleList' } }).
+  // 	wx.cloud.init()
+  // 	const db = wx.cloud.database();
+  // 	wx.cloud.callFunction({
+  // 	  name:'article',
+  // 	  data:{
+  // 	    $url:'articleList',
+  // 	  }
+  // 	}).then(res => {
+  // 		console.log(res.result);
+  // 		th.listData=res.result.data; 
+  // 	}).catch(err => {
+  // 	  console.error(err) 
+  // 	})
+  // },
+  onLoad: function onLoad(e) {var _this = this;
+    var pageIndex = 1;
+    var pageSize = 5;
 
-    then(function (res) {
-      console.log(res.result);
-      th.listData = res.result.data;
-    }).catch(function (err) {
-      console.error(err);
-    });
+    uni.request({
+      url: "http://1.15.175.248:8005/article/list/".concat(pageIndex, "/").concat(pageSize),
+      method: 'GET',
+      success: function success(res) {
+        console.log(res);
+        _this.listData = res.data.data.data;
+        console.log(_this.listData);
+      },
+      fail: function fail(err) {
+        console.log('failed', err);
+      } });
+
   },
 
 
@@ -195,22 +232,22 @@ var _default =
         url: '/pages/list/article_details/article_details?artId=' + artId });
 
 
-      wx.cloud.callFunction({
-        name: 'myHistoryAdd',
-        data: {
-          foreign_id: artId,
-          type: 'article',
-          data: {
-            title: title,
-            type: type,
-            Id: artId } } }).
-
-
-      then(function (res) {
-        console.log(res);
-      }).catch(function (err) {
-        console.error(err);
-      });
+      // wx.cloud.callFunction({
+      // 	name:'myHistoryAdd',
+      // 	data:{
+      // 		foreign_id:artId,
+      // 		type:'article',
+      // 		data:{
+      // 			title:title,
+      // 			type:type,
+      // 			Id:artId
+      // 		}
+      // 	}   
+      // }).then(res =>{  
+      // 	console.log(res)      
+      // }).catch(err =>{
+      // 	console.error(err) 
+      // })
     },
 
 

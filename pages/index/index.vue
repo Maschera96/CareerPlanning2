@@ -1,94 +1,97 @@
 <template>
 	<view class="content">
+		<view class="mainContent">
 
-		<!-- 弹窗层 -->
-		<view v-if="search">
-			<view @tap="close" class="cover"></view>
-			<view class="searchBox">
-				<view v-for="(item,index) in searchResult" :key="index">
-					<view class="searchItem" @tap="gotoJob(item.indexCode)">
-						<view class="itemType">{{item.jobType}}</view>
-						<view class="itemPlace">{{item.jobPlace}}</view>
-						<view class="itemName">{{item.jobName}}</view>
+			<!-- 弹窗层 -->
+			<view v-if="search">
+				<view @tap="close" class="cover"></view>
+				<view class="searchBox">
+					<view v-for="(item,index) in searchResult" :key="index">
+						<view class="searchItem" @tap="gotoJob(item.indexCode)">
+							<view class="itemType">{{item.jobType}}</view>
+							<view class="itemPlace">{{item.jobPlace}}</view>
+							<view class="itemName">{{item.jobName}}</view>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
 
-		<!-- 头部层 -->
-		<view class="head">
-			<view class="cu-bar search ">
-				<icon class="action">
-					<text class="country">全国</text>
-					<icon class="cuIcon-triangledownfill" style="font-size: 40rpx;"></icon>
-				</icon>
-				<view class="search-form round">
-					<text class="cuIcon-search"></text>
-					<input type="text" placeholder="搜索职位名称" confirm-type="search" v-model="searchContent"
-						@focus="search = true" @confirm="gotoSearch()"></input>
+			<!-- 头部层 -->
+			<view class="head">
+				<view class="cu-bar search ">
+					<icon class="action">
+						<text class="country">全国</text>
+						<icon class="cuIcon-triangledownfill" style="font-size: 40rpx;"></icon>
+					</icon>
+					<view class="search-form round">
+						<text class="cuIcon-search"></text>
+						<input type="text" placeholder="搜索职位名称" confirm-type="search" v-model="searchContent"
+							@focus="search = true" @confirm="gotoSearch()"></input>
+					</view>
 				</view>
-			</view>
-			<view class="icon-phone">
-				<icon class='cuIcon-phone' style="color:#00000;font-size: 200%;"></icon>
-			</view>
-		</view>
-
-		<!-- 卡片层 -->
-		<view class="card">
-			<image class="cardp" src=../../static/index_pic/title.jpg></image>
-		</view>
-
-
-		<!-- 按钮层  -->
-		<view class="icon">
-			<view class="ic">
-				<view class="course" @tap="gotoCourse()">
-					<image class="course_icon" src=../../static/index_pic/course.png></image>
-				</view>
-				<view class="text2">
-					<text>课程</text>
+				<view class="icon-phone">
+					<icon class='cuIcon-phone' style="color:#00000;font-size: 200%;"></icon>
 				</view>
 			</view>
 
-			<view class="ic">
-				<view class="college" @tap="gotoCollege()">
-					<image class="college_icon" src=../../static/index_pic/college.png></image>
+			<!-- 卡片层 -->
+			<view class="card">
+				<image class="cardp" src=../../static/index_pic/title.jpg></image>
+			</view>
+
+
+			<!-- 按钮层  -->
+			<view class="icon">
+				<view class="ic">
+					<view class="course" @tap="gotoCourse()">
+						<image class="course_icon" src=../../static/index_pic/course.png></image>
+					</view>
+					<view class="text2">
+						<text>课程</text>
+					</view>
 				</view>
-				<view class="text2">
-					<text>学院</text>
+
+				<view class="ic">
+					<view class="college" @tap="gotoCollege()">
+						<image class="college_icon" src=../../static/index_pic/college.png></image>
+					</view>
+					<view class="text2">
+						<text>学院</text>
+					</view>
+				</view>
+
+				<view class="ic">
+					<view class="book" @tap="gotoBook()">
+						<image class="book_icon" src=../../static/index_pic/book.png></image>
+					</view>
+					<view class="text2">
+						<text>书籍</text>
+					</view>
+				</view>
+
+				<view class="ic">
+					<view class="competition">
+						<image class="competition_icon" src=../../static/index_pic/competition.png></image>
+					</view>
+					<view class="text2">
+						<text>竞赛</text>
+					</view>
 				</view>
 			</view>
 
-			<view class="ic">
-				<view class="book" @tap="gotoBook()">
-					<image class="book_icon" src=../../static/index_pic/book.png></image>
+			<!-- 规划企业层  -->
+			<view class="PlanningCompany">
+				<view class="Company" @tap="gotoCompany()">
+					<image class="CompanyPic" src=../../static/index_pic/company.jpg>
+					</image>
 				</view>
-				<view class="text2">
-					<text>书籍</text>
+
+				<view class="Planning" @tap="gotoPlanning()">
+					<image class="PlanningPic" src=../../static/index_pic/planning.jpg>
+					</image>
 				</view>
 			</view>
 
-			<view class="ic">
-				<view class="competition">
-					<image class="competition_icon" src=../../static/index_pic/competition.png></image>
-				</view>
-				<view class="text2">
-					<text>竞赛</text>
-				</view>
-			</view>
-		</view>
-
-		<!-- 规划企业层  -->
-		<view class="PlanningCompany">
-			<view class="Company" @tap="gotoCompany()">
-				<image class="CompanyPic" src=../../static/index_pic/company.jpg>
-				</image>
-			</view>
-
-			<view class="Planning" @tap="gotoPlanning()">
-				<image class="PlanningPic" src=../../static/index_pic/planning.jpg>
-				</image>
-			</view>
 		</view>
 
 		<!--文章列表层-->
@@ -101,23 +104,22 @@
 			</view>
 
 			<view class="jobs">
-				<view class="hotposition">
-					<view class="ex" v-for="(value,index) in listData" :key="index" @click="goDetail(value._id)">
-						<view class="oneitem">
-							<image class="company_logo" v-bind:src=value.company.logo> </image>
-							<view class="infor">
-								<view class="company_position">{{value.position}}</view>
-								<view class="company_request">{{value.place}}|{{value.experience}}|{{value.education}}
-								</view>
-							</view>
-							<view class="company_salary">{{value.salary}}</view>
+				<view style="margin-top: 30rpx;">
+					<view class="oneitem" v-for="(value,index) in hotJob" :key="index" @click="goDetail(value.indexCode)">
+						<view class="company_position">{{value.jobName}}</view>
+						<view class="jobRow">
+							<view class="jobContent">{{value.jobPlace.split(' ')[0]}} | {{value.jobType}}</view>
+							<!-- <view class="company_salary">{{value.salary}}</view> -->
+							<image class="company_logo" :src="value.companyLogo"> </image>
+								<!-- <view class="company_position">{{value.jobName}}</view> -->
+								<!-- <view class="company_request">{{value.place}}|{{value.experience}}|{{value.education}} -->
 						</view>
-						<view class="divLine"></view>
 					</view>
 				</view>
-
 			</view>
+
 		</view>
+	</view>
 
 	</view>
 </template>
@@ -131,6 +133,7 @@
 				search: false,
 				searchContent: '',
 				searchResult: [],
+				hotJob: [],
 			}
 		},
 		onLoad: function(e) {
@@ -144,10 +147,6 @@
 				}
 			})
 
-			// wx.cloud.init({
-			// 	env: 'zygh-test-wn16v',
-			// 	traceUser: true,
-			// });
 			// 获取用户的openid
 			wx.cloud.callFunction({
 				name: 'login', // 打开微信云开发控制平台，左上角点击[云函数]
@@ -165,19 +164,15 @@
 				}
 			});
 
-			wx.cloud.init()
-			const db = wx.cloud.database();
-			//	const _ = db.command;
-
-			wx.cloud.callFunction({
-				name: 'hotJobs',
-			}).then(res => {
-				this.listData = res.result.data
-				console.log(res)
-
-			}).catch(err => {
-				console.error(err)
+			//获取热门岗位
+			uni.request({
+				url: `http://1.15.175.248:8002/job/hot_jobs/5`,
+				success: (res) => {
+					this.hotJob = res.data.data
+					console.log(this.hotJob);
+				}
 			})
+
 		},
 
 		methods: {
@@ -247,6 +242,12 @@
 </script>
 
 <style>
+
+	.mainContent {
+		background-color: #FFFFFF;
+		padding-bottom: 60rpx;
+	}
+
 	.cover {
 		position: absolute;
 		left: 0px;
@@ -463,12 +464,15 @@
 	}
 
 	.list {
-		margin-top: 40rpx;
+		margin-top: 20rpx;
 	}
 
 	.about {
 		display: flex;
 		flex-direction: row;
+		background-color: #FFFFFF;
+		height: 80rpx;
+		align-items: center;
 	}
 
 
@@ -477,19 +481,30 @@
 		color: #AAAAAA;
 	}
 
+	.jobRow {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	.company_logo {
 		max-width: 100%;
 		max-height: 100%;
 		height: 100rpx;
-		width: 200rpx;
-		margin-left: 40rpx;
-		margin-top: 20rpx;
+		width: 150rpx;
 	}
 
 	.company_salary {
-		margin-top: 20rpx;
 		font-size: 30rpx;
 		color: #397af3;
+		/* width: 35%; */
+	}
+	
+	.jobContent{
+		font-size: 30rpx;
+		color: #7c7c7c;
+		/* width: 45%; */
 	}
 
 	.hot_position {
@@ -501,7 +516,7 @@
 
 	.company_position {
 		font-weight: bold;
-		font-size: 30rpx;
+		font-size: 35rpx;
 	}
 
 	.infor {
@@ -511,18 +526,18 @@
 
 	.oneitem {
 		display: flex;
-		flex-direction: row;
-		height: 130rpx;
+		flex-direction: column;
+		height: 200rpx;
+		width: 90%;
+		border-radius: 30rpx;
+		box-shadow: 0rpx 3rpx 15rpx #e6e6e6;
+		margin: 0rpx auto 40rpx auto;
+		padding: 30rpx 30rpx;
+		
 	}
 
 	.company_request {
 		margin-top: 10rpx;
-	}
-
-	.company_salary {
-		position: absolute;
-		left: 650rpx;
-		margin-top: 40rpx;
 	}
 
 	.divLine {

@@ -9,13 +9,15 @@
 		</view>
 		
 		<view class="uni-list">
-			<view v-for="(value,index) in listData" :key="index" @tap="gotoarticle(value._id,value.title,value.type)">
+			<view v-for="(value,index) in listData" :key="index" @tap="gotoarticle(value.indexCode,value.title,value.articleType)">
 				<!-- <navigator :url="'../article_details/article_details?id='+value._id"> -->
 				<view class="list-body" >
-					<view class="uni-media-list-text-top">来自话题：{{value.type}}</view>
+					<view class="uni-media-list-text-top">来自话题：{{value.articleType}}</view>
 					<view class="uni-media-list-text-center">{{value.title}}</view>
 					<view class="uni-media-list-text-bottom">
-						<view>{{value.follows}}收藏</view>
+						{{value.createTime.split(' ')[0]}}
+						<!-- <image class='<user_avatar></user_avatar>' :src='value.user.avatarUrl' />
+						<view>{{value.user.nickName}}</view> -->
 					</view>	
 				</view>
 				<view class="line"></view>     
@@ -36,22 +38,39 @@
             }
         },
 		
-        onShow:function(options){
+  //       onShow:function(options){
 			
-			let th=this;
+		// 	let th=this;
 			
-			wx.cloud.init()
-			const db = wx.cloud.database();
-			wx.cloud.callFunction({
-			  name:'article',
-			  data:{
-			    $url:'articleList',
-			  }
-			}).then(res => {
-				console.log(res.result);
-				th.listData=res.result.data; 
-			}).catch(err => {
-			  console.error(err) 
+		// 	wx.cloud.init()
+		// 	const db = wx.cloud.database();
+		// 	wx.cloud.callFunction({
+		// 	  name:'article',
+		// 	  data:{
+		// 	    $url:'articleList',
+		// 	  }
+		// 	}).then(res => {
+		// 		console.log(res.result);
+		// 		th.listData=res.result.data; 
+		// 	}).catch(err => {
+		// 	  console.error(err) 
+		// 	})
+		// },
+		onLoad: function(e) {
+			let pageIndex = 1
+			let pageSize = 5
+			
+			uni.request({
+				url: `http://1.15.175.248:8005/article/list/${pageIndex}/${pageSize}`,
+				method: 'GET',
+				success: (res) => {
+					console.log(res);
+					this.listData = res.data.data.data
+					console.log(this.listData);
+				},
+				fail: (err) => {
+					console.log('failed',err);
+				}
 			})
 		},
 		
@@ -63,22 +82,22 @@
 					url:'/pages/list/article_details/article_details?artId='+artId
 				})
 
-				wx.cloud.callFunction({
-					name:'myHistoryAdd',
-					data:{
-						foreign_id:artId,
-						type:'article',
-						data:{
-							title:title,
-							type:type,
-							Id:artId
-						}
-					}   
-				}).then(res =>{  
-					console.log(res)      
-				}).catch(err =>{
-					console.error(err) 
-				})
+				// wx.cloud.callFunction({
+				// 	name:'myHistoryAdd',
+				// 	data:{
+				// 		foreign_id:artId,
+				// 		type:'article',
+				// 		data:{
+				// 			title:title,
+				// 			type:type,
+				// 			Id:artId
+				// 		}
+				// 	}   
+				// }).then(res =>{  
+				// 	console.log(res)      
+				// }).catch(err =>{
+				// 	console.error(err) 
+				// })
 			},
 
 
@@ -161,6 +180,14 @@
 		bottom: 90rpx;
 		right: 60rpx;
 		font-size: 50rpx;
+	}
+	
+	.user_avatar{
+		border-radius:50%;
+		height: 110rpx;
+		width: 110rpx;
+		margin-top: 20rpx;
+		margin-left: 40rpx;
 	}
 	
 </style>

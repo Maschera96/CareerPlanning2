@@ -17,9 +17,19 @@
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	        flex-direction: row;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
+}
+.item {
+	border-radius: 30rpx;
+	width: 90%;
+	padding: 20rpx 0rpx;
+	margin: 0rpx auto;
+	box-shadow: 0rpx 3rpx 15rpx #e6e6e6;
 }
 .text-introtion {
 	color: #AAAAAA;
@@ -29,11 +39,14 @@
 .text-introtion_ {
 	color: #5b2d00;
 	font-size: 30rpx;
-	margin-top: 10rpx;
 }
 .text-title {
 	font-size: 37rpx;
 	font-weight: 600;
+	width: 55%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .text-ps {
 	color: #AAAAAA;

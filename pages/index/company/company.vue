@@ -1,21 +1,20 @@
 <template>
 	<view class="cul">
-		<view class="cu-card shadow-warp" v-for="(item,index) in company" :key="index"
+		<view class="item cu-card shadow-warp" v-for="(item,index) in company" :key="index"
 			style="background-color: #FFFFFF; margin-top: 25rpx;">
 			<view class="cu-list" @tap="gotocompanys(item.indexCode)">
 				<view class="ro">
-					<image style="width: 200rpx; height: 180rpx; margin-left: 25rpx;" :src="item.companyLogo" mode="aspectFit">
+					<image style="width: 27%; height: 180rpx; margin-left: 25rpx;" :src="item.companyLogo"
+						mode="aspectFit">
 					</image>
 					<!-- <view>item.companyLogo{{item.companyLogo}}</view> -->
-					<view class="cul">
-						<text class="text-title">{{item.companyName}}</text>
+					<view class="cul" style="width: 73%; padding: 30rpx;">
 						<view class="ro">
-							<text class="text-introtion_">面试评分</text>
-							<text class="text-introtion_"
-								style="margin-left: 180rpx;">在招职位&nbsp;{{item.jobs_count}}</text>
+							<text class="text-title">{{item.companyName}}</text>
+							<text class="text-introtion_">在招职位&nbsp;6</text>
 						</view>
 						<text class="text-introtion">
-							北京&ensp;|&ensp;C轮200以上&ensp;|&ensp;文娱&ensp;|&ensp;内容</text>
+							{{item.companyAddress.split('市')[0]}}&ensp;|&ensp;{{item.financing}}&ensp;|&ensp;{{item.companyType}}</text>
 					</view>
 				</view>
 				<view class="text-ps">
@@ -23,6 +22,7 @@
 				</view>
 			</view>
 		</view>
+		<view style="height: 1140rpx;"></view>
 	</view>
 </template>
 
@@ -36,17 +36,26 @@
 		onLoad: function(e) {
 			let pageIndex = 1
 			let pageSize = 5
-			
+
 			uni.request({
 				url: `http://1.15.175.248:8000/company/list/${pageIndex}/${pageSize}`,
 				method: 'GET',
 				success: (res) => {
 					console.log(res);
 					this.company = res.data.data.data
-					console.log(this.company);
+					for(let i = 0; i<this.company.length; i++){
+						let str = this.company[i].companyAddress
+						console.log(str);
+						let newStr = /[国|省](.{2})市/.exec(str)
+						if(newStr){this.company[i].companyAddress = newStr[1];continue}
+						newStr = /[国|省](.{2})/.exec(str)
+						if(newStr){this.company[i].companyAddress = newStr[1];continue}
+						newStr = /(.{2})市/.exec(str)
+						if(newStr){this.company[i].companyAddress = newStr[1];continue}
+					}
 				},
 				fail: (err) => {
-					console.log('failed',err);
+					console.log('failed', err);
 				}
 			})
 		},
@@ -70,7 +79,16 @@
 	.ro {
 		display: flex;
 		flex-direction: row;
+		justify-content: space-between;
 		align-items: center;
+	}
+
+	.item {
+		border-radius: 30rpx;
+		width: 90%;
+		padding: 20rpx 0rpx;
+		margin: 0rpx auto;
+		box-shadow: 0rpx 3rpx 15rpx #e6e6e6;
 	}
 
 	.text-introtion {
@@ -82,12 +100,15 @@
 	.text-introtion_ {
 		color: #5b2d00;
 		font-size: 30rpx;
-		margin-top: 10rpx;
 	}
 
 	.text-title {
 		font-size: 37rpx;
 		font-weight: 600;
+		width: 55%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.text-ps {

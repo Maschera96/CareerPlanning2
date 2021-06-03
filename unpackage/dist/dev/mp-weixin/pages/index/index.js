@@ -104,11 +104,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.hotJob, function(value, index) {
+    var $orig = _vm.__get_orig(value)
+
+    var g0 = value.jobPlace.split(" ")
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.search = true
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -264,6 +283,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   data: function data() {
@@ -272,7 +293,8 @@ var _default =
       modalName: false,
       search: false,
       searchContent: '',
-      searchResult: [] };
+      searchResult: [],
+      hotJob: [] };
 
   },
   onLoad: function onLoad(e) {var _this = this;
@@ -286,10 +308,6 @@ var _default =
       } });
 
 
-    // wx.cloud.init({
-    // 	env: 'zygh-test-wn16v',
-    // 	traceUser: true,
-    // });
     // 获取用户的openid
     wx.cloud.callFunction({
       name: 'login', // 打开微信云开发控制平台，左上角点击[云函数]
@@ -307,19 +325,15 @@ var _default =
       } });
 
 
-    wx.cloud.init();
-    var db = wx.cloud.database();
-    //	const _ = db.command;
+    //获取热门岗位
+    uni.request({
+      url: "http://1.15.175.248:8002/job/hot_jobs/5",
+      success: function success(res) {
+        _this.hotJob = res.data.data;
+        console.log(_this.hotJob);
+      } });
 
-    wx.cloud.callFunction({
-      name: 'hotJobs' }).
-    then(function (res) {
-      _this.listData = res.result.data;
-      console.log(res);
 
-    }).catch(function (err) {
-      console.error(err);
-    });
   },
 
   methods: {

@@ -47,6 +47,12 @@
           "pathName": "pages/index/college/college",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/index/company/company",
+          "pathName": "pages/index/company/company",
+          "query": "",
+          "scene": null
         }
       ]
     }

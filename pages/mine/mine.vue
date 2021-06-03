@@ -8,7 +8,7 @@
 				<view class="avatar round">
 				    <!-- <view class="cu-tag badge cuIcon-male bg-blue" style=" width: 40%; height:40%;
 					font-size: 25upx; font-weight: 500;"> -->
-						<open-data type="userAvatarUrl" class="round" style="overflow: hidden;"></open-data>
+						<open-data type="userAvatarUrl" class="ava round" style="overflow: hidden;"></open-data>
 						<view class="tag badge cuIcon-male bg-blue"></view>
 					<!-- </view> -->
 				</view>
@@ -245,21 +245,26 @@
 		font-variant: small-caps;
 		margin: 0;
 		padding: 0;
-		display: inline-flex;
-		text-align: center;
+		display: flex;
+		align-items: center;
 		justify-content: center;
 		align-items: center;
 		background-color: #ccc;
 		color: #ffffff;
 		white-space: nowrap;
 		position: relative;
-		width: 128upx;
-		height: 128upx;
+		width: 128rpx;
+		height: 128rpx;
 		background-size: cover;
 		background-position: center;
 		vertical-align: middle;
 		font-size: 2.5em;
-		border: 8upx solid #f1f1f1;
+		border: 8rpx solid #f1f1f1;
+	}
+	
+	.ava {
+		height: 112rpx;
+		width: 112rpx;
 	}
 	
 	.tag {

@@ -135,16 +135,16 @@
 	font-variant: small-caps;
 	margin: 0;
 	padding: 0;
-	display: -webkit-inline-box;
-	display: -webkit-inline-flex;
-	display: inline-flex;
-	text-align: center;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	        justify-content: center;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	align-items: center;
 	background-color: #ccc;
 	color: #ffffff;
 	white-space: nowrap;
@@ -156,6 +156,10 @@
 	vertical-align: middle;
 	font-size: 2.5em;
 	border: 8rpx solid #f1f1f1;
+}
+.ava {
+	height: 112rpx;
+	width: 112rpx;
 }
 .tag {
 	width: 36%;

@@ -65,5 +65,12 @@
 		right: 60rpx;
 		font-size: 50rpx;
 }
+.user_avatar{
+		border-radius:50%;
+		height: 110rpx;
+		width: 110rpx;
+		margin-top: 20rpx;
+		margin-left: 40rpx;
+}
 	
 

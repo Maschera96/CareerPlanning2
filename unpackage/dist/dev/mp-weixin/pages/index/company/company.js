@@ -97,6 +97,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.company, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.companyAddress.split("市")
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -175,7 +193,16 @@ var _default =
       success: function success(res) {
         console.log(res);
         _this.company = res.data.data.data;
-        console.log(_this.company);
+        for (var i = 0; i < _this.company.length; i++) {
+          var str = _this.company[i].companyAddress;
+          console.log(str);
+          var newStr = /[国|省](.{2})市/.exec(str);
+          if (newStr) {_this.company[i].companyAddress = newStr[1];continue;}
+          newStr = /[国|省](.{2})/.exec(str);
+          if (newStr) {_this.company[i].companyAddress = newStr[1];continue;}
+          newStr = /(.{2})市/.exec(str);
+          if (newStr) {_this.company[i].companyAddress = newStr[1];continue;}
+        }
       },
       fail: function fail(err) {
         console.log('failed', err);

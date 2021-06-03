@@ -159,7 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -238,171 +238,263 @@ var _default =
 {
   data: function data() {
     return {
-      collect: null,
-      thumbs: null,
+      article: {},
       artId: null,
-      articles: {},
+      status: false,
       commitcontent: {},
-      comment: '',
-      commentText: false,
-      avatarUrl: null,
-      nickName: null,
-      thumbsNumber: null };
+      comment: {
+        content: null,
+        userOpenId: null,
+        articleIndexCode: null } };
+
 
   },
 
   onLoad: function onLoad(option) {var _this = this;
     this.artId = option.artId;
-    wx.cloud.init();
-    var db = wx.cloud.database();
-    var _ = db.command;
-
-    this.artId = option.artId;
-    //获取数据
-    wx.cloud.callFunction({
-      name: 'article',
-      data: {
-        $url: 'artDetail',
-        other: {
-          id: this.artId } } }).
-
-
+    wx.getStorage({
+      key: 'openId' }).
     then(function (res) {
-      console.log(res);
-      _this.articles = res.result.data;
-      _this.thumbsNumber = res.result.data.thumbsUp.length;
-    }).catch(function (err) {
-      console.error(err);
-    }),
-    //查询是否收藏
-    wx.cloud.callFunction({
-      name: 'article',
-      data: {
-        $url: 'queryfollow',
-        other: {
-          id: this.artId } } }).
+      // res.data = 'test001'
+      console.log('当前用户为', res.data);
+      uni.request({
+        url: 'http://1.15.175.248:8005/article/get/' + _this.artId + '/' + res.data,
+        success: function success(res) {
+          console.log(res.data.code);
+          console.log(res);
+          if (res.data.code === -1) {
+            _this.status = false;
+          } else {
+            _this.status = true;
+            _this.article = res.data.data;
+          }
+        } });
 
+      uni.request({
+        url: 'http://1.15.175.248:8005/comment/list/' + _this.artId + '/1/5',
+        success: function success(res) {
+          console.log(res.data.code);
+          console.log(res);
+          if (res.data.code === -1) {
+            _this.status = false;
+          } else {
+            _this.status = true;
+            _this.commitcontent = res.data.data;
+          }
+        } });
 
-    then(function (res) {
-      if (res.result.data.followed == "1") {
-        _this.collect = true;
-      } else {
-        _this.collect = false;
-      }
-    }).catch(function (err) {
-      console.error(err);
-    }),
-    //查询是否点赞
-    wx.cloud.callFunction({
-      name: 'article',
-      data: {
-        $url: 'queryThumbsUp',
-        other: {
-          id: this.artId } } }).
-
-
-    then(function (res) {
-      _this.thumbsNumber = res.result.data.thumbsUped;
-      if (res.result.data.thumbsUped == '1') {
-        _this.thumbs = true;
-      } else {
-        _this.thumbs = false;
-      }
-    }).catch(function (err) {
-      console.error(err);
     });
-    //渲染评论
-    wx.cloud.callFunction({
-      name: 'articleCompents',
-      data: {
-        articleId: this.artId } }).
+    // wx.cloud.init()
+    // const db = wx.cloud.database();
+    // const _ = db.command;
 
-    then(function (res) {
-      _this.commitcontent = res.result.data;
-    });
+    // this.artId=option.artId
+    // //获取数据
+    //    wx.cloud.callFunction({
+    // 	name:'article',
+    // 	data: {
+    // 		$url:'artDetail',
+    // 		other: {
+    // 			id:this.artId,
+    // 		}
+    // 	}
+    //    }).then(res => {
+    // 	console.log(res);
+    // 	this.articles = res.result.data
+    // 	this.thumbsNumber = res.result.data.thumbsUp.length
+    //    }).catch(err => {
+    // 	console.error(err)
+    //    }),
+    // //查询是否收藏
+    // wx.cloud.callFunction({
+    //     name:'article',
+    //     data:{
+    //         $url:'queryfollow',
+    //         other:{
+    // 			id:this.artId
+    //         }
+    //     }
+    // }).then(res => {
+    // 	if (res.result.data.followed == "1"){
+    // 		this.collect = true
+    // 	}else{
+    // 		this.collect = false
+    // 	}
+    // }).catch(err => {
+    // 	console.error(err)
+    // }),
+    // //查询是否点赞
+    // wx.cloud.callFunction({
+    //       name:'article',
+    //       data:{
+    //         $url:'queryThumbsUp',
+    //         other:{
+    //           id:this.artId
+    //         }
+    //       }
+    //     }).then(res => {
+    // 		this.thumbsNumber = res.result.data.thumbsUped
+    // 	  if(res.result.data.thumbsUped == '1'){
+    // 		  this.thumbs = true
+    // 	  }else{
+    // 		  this.thumbs = false
+    // 	  }
+    //     }).catch(err => {
+    //       console.error(err)
+    //     })
+    // //渲染评论
+    // wx.cloud.callFunction({
+    //      name:'articleCompents',
+    //      data: {
+    //        articleId:this.artId,
+    //      }
+    //    }).then(res => {
+    // 	   this.commitcontent = res.result.data
+    //    });
 
   },
 
 
   methods: {
     //收藏
-    Collect: function Collect() {
-      this.collect = !this.collect;
-      //若还未收藏
-      var th = this;
-      if (this.collect == true) {
-        wx.cloud.callFunction({
-          name: 'article',
-          data: {
-            $url: 'followArt',
-            other: {
-              id: this.artId,
-              nickName: 'biboer2',
-              avatarUrl: 'https:image.com' } } }).
-
-
+    Collect: function Collect() {var _this2 = this;
+      // this.collect = !this.collect
+      // //若还未收藏
+      // let th = this
+      if (this.article.isCollectedByCurrentUser == false) {
+        wx.getStorage({
+          key: 'openId' }).
         then(function (res) {
-          wx.showToast({
-            title: '收藏成功' });
+          // res.data = 'test001'
+          console.log('当前用户为', res.data);
+          uni.request({
+            url: 'http://1.15.175.248:8005/article/collect/' + _this2.artId + '/' + res.data,
+            success: function success(res) {
+              console.log(res.data.code);
+              console.log(res);
+              if (res.data.code === -1) {
+                _this2.status = false;
+              } else {
+                _this2.status = true;
+              }
+            } });
 
-        }).catch(function (err) {
-          console.error(err);
         });
+        // wx.cloud.callFunction({
+        // 	name: 'article',
+        // 	data: {
+        // 		$url: 'followArt',
+        // 		other: {
+        // 			id: this.artId,
+        // 			nickName:'biboer2',
+        // 			avatarUrl:'https:image.com'
+        // 		}
+        // 	}
+        // }).then(res =>{
+        // 	wx.showToast({
+        // 		title: '收藏成功',
+        // 	})
+        // }).catch(err => {
+        // 	console.error(err)
+        // })
         //若已收藏
       } else {
-        wx.cloud.callFunction({
-          name: 'article',
-          data: {
-            $url: 'resetfollow',
-            other: {
-              id: this.artId } } }).
-
-
+        wx.getStorage({
+          key: 'openId' }).
         then(function (res) {
-          wx.showToast({
-            title: '已取消收藏' });
+          // res.data = 'test001'
+          console.log('当前用户为', res.data);
+          uni.request({
+            url: 'http://1.15.175.248:8005/article/cancel_collect/' + _this2.artId + '/' + res.data,
+            success: function success(res) {
+              console.log(res.data.code);
+              console.log(res);
+              if (res.data.code === -1) {
+                _this2.status = false;
+              } else {
+                _this2.status = true;
+              }
+            } });
 
-        }).catch(function (err) {
-          console.error(err);
         });
+        // wx.cloud.callFunction({
+        // 	name:'article',
+        // 	data: {
+        // 		$url:'resetfollow',
+        // 		other:{
+        // 		id:this.artId,
+        // 		}
+        // 	}
+        // }).then(res => {
+        // 	wx.showToast({
+        // 		title: '已取消收藏',
+        // 	})
+        // }).catch(err => {
+        // 	console.error(err)
+        // })
       }
     },
     //发布评论
-    submintComment: function submintComment(e) {var _this2 = this;
+    submintComment: function submintComment(e) {var _this3 = this;
       //检查是否授权
       this.nickName = e.detail.userInfo.nickName;
       this.avatarUrl = e.detail.userInfo.avatarUrl;
 
-      if (this.comment) {
-        wx.cloud.callFunction({
-          name: 'articleReview',
-          data: {
-            content: this.comment,
-            date: new Date(),
-            articleId: this.artId,
-            sender: {
-              avatarUrl: this.avatarUrl,
-              nickName: this.nickName } } }).
-
-
+      if (this.comment.content) {
+        wx.getStorage({
+          key: 'openId' }).
         then(function (res) {
-          wx.showToast({
-            title: '评论成功' }),
+          // res.data = 'test001'
+          console.log('当前用户为', res.data);
+          _this3.comment.userOpenId = res.data;
+          _this3.comment.articleIndexCode = _this3.artId;
+          uni.request({
+            url: 'http://1.15.175.248:8005/comment/add/',
+            method: 'POST',
+            data: _this3.comment,
+            header: {
+              'Content-Type': 'application/json' },
 
-          _this2.comment = '';
-          //重新渲染一次评论
-          wx.cloud.callFunction({
-            name: 'articleCompents',
-            data: {
-              articleId: _this2.artId } }).
+            success: function success(res) {
+              console.log(res.data.code);
+              console.log(res);
+              if (res.data.code === -1) {
+                _this3.status = false;
+              } else {
+                _this3.status = true;
+              }
+            } });
 
-          then(function (res) {
-            _this2.commitcontent = res.result.data;
-          });
-        }).
-        catch(function (err) {
-          console.error(err);
         });
+        // wx.cloud.callFunction({
+        // 	name:'articleReview',
+        // 	data: {
+        // 		content:this.comment,
+        // 		date:new Date(),
+        // 		articleId:this.artId,
+        // 		sender: {
+        // 			avatarUrl: this.avatarUrl,
+        // 			nickName: this.nickName,
+        // 		}
+        // 	}
+        // }).then(res => {
+        // 	wx.showToast({
+        // 		title: '评论成功',
+        // 	}),
+        // 	this.comment = ''
+        // 	//重新渲染一次评论
+        // 	wx.cloud.callFunction({
+        // 		name:'articleCompents',
+        // 		data: {
+        // 			articleId:this.artId,
+        // 	    }
+        // 	}).then(res => {
+        // 		this.commitcontent = res.result.data
+        // 	});
+        // })
+        // .catch(err => {
+        // 	console.error(err)
+        // })
         //页面滚动
         wx.createSelectorQuery().select('#j_page').boundingClientRect(function (rect) {
           console.log(rect);
@@ -418,46 +510,82 @@ var _default =
       }
     },
     //点赞 
-    thumbsUp: function thumbsUp() {var _this3 = this;
-      this.thumbs = !this.thumbs;
-      //若还未点赞
-      var th = this;
-      if (this.thumbs == true) {
-        wx.cloud.callFunction({
-          name: 'article', //云函数名     
-          data: {
-            $url: 'thumbsUp', //接口路由       
-            other: {
-              nickName: this.nickName, //用户昵称         
-              avatarUrl: this.avatarUrl, //用户头像         
-              id: this.artId //文章id       
-            } } }).
-
+    thumbsUp: function thumbsUp() {var _this4 = this;
+      // this.thumbs = !this.thumbs
+      // //若还未点赞
+      // let th = this
+      if (this.article.isZanByCurrentUser == false) {
+        wx.getStorage({
+          key: 'openId' }).
         then(function (res) {
-          _this3.thumbsNumber++;
-          wx.showToast({
-            title: '点赞成功' });
+          // res.data = 'test001'
+          console.log('当前用户为', res.data);
+          uni.request({
+            url: 'http://1.15.175.248:8005/article/zan/' + _this4.artId + '/' + res.data,
+            success: function success(res) {
+              console.log(res.data.code);
+              console.log(res);
+              if (res.data.code === -1) {
+                _this4.status = false;
+              } else {
+                _this4.status = true;
+              }
+            } });
 
-        }).
-        catch(function (err) {console.log(err);});
+        });
+        // wx.cloud.callFunction({     
+        // 	name:'article',//云函数名     
+        // 	data: {       
+        // 		$url:'thumbsUp',//接口路由       
+        // 		other:{         
+        // 			nickName: this.nickName,//用户昵称         
+        // 			avatarUrl: this.avatarUrl,//用户头像         
+        // 			id: this.artId//文章id       
+        // 		}    
+        // 	}   
+        // }).then(res => {
+        // 	this.thumbsNumber ++
+        // 	wx.showToast({
+        // 		title: '点赞成功',
+        // 	})
+        // })
+        // .catch(err => {console.log(err)}) 
         //若已点赞
       } else {
-        wx.cloud.callFunction({
-          name: 'article',
-          data: {
-            $url: 'resetThumbsUp',
-            other: {
-              id: this.artId //文章id
-            } } }).
-
+        wx.getStorage({
+          key: 'openId' }).
         then(function (res) {
-          _this3.thumbsNumber--;
-          wx.showToast({
-            title: '取消点赞' });
+          // res.data = 'test001'
+          console.log('当前用户为', res.data);
+          uni.request({
+            url: 'http://1.15.175.248:8005/article/cancel_zan/' + _this4.artId + '/' + res.data,
+            success: function success(res) {
+              console.log(res.data.code);
+              console.log(res);
+              if (res.data.code === -1) {
+                _this4.status = false;
+              } else {
+                _this4.status = true;
+              }
+            } });
 
-        }).catch(function (err) {
-          console.error(err);
         });
+        // wx.cloud.callFunction({
+        // 	name:'article',
+        // 	data: {
+        // 		$url:'resetThumbsUp',
+        // 		other:{
+        // 			id: this.artId,//文章id
+        // 		}
+        // 	}
+        // }).then(res => {
+        // 	this.thumbsNumber --
+        // 	wx.showToast({
+        // 		title: '取消点赞',
+        // 	})
+        // }).catch(err => {
+        // 	console.error(err)
+        // })
       }
     },
     toCommentInput: function toCommentInput() {
@@ -466,6 +594,7 @@ var _default =
     changeText: function changeText() {
       this.commentText = false;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 
