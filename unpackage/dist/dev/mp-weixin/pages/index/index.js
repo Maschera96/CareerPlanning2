@@ -313,7 +313,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
@@ -330,7 +329,6 @@ var _default =
   onLoad: function onLoad(e) {var _this = this;
     this.modalName = true;
 
-
     //获取热门岗位
     uni.request({
       url: "http://1.15.175.248:8002/job/hot_jobs/5",
@@ -339,6 +337,12 @@ var _default =
         console.log(_this.hotJob);
       } });
 
+  },
+
+  onShow: function onShow() {var _this2 = this;
+    wx.getStorage({
+      key: 'openId',
+      fail: function fail() {_this2.modalName = true;} });
 
   },
 
@@ -374,7 +378,7 @@ var _default =
         id });
 
     },
-    gotoSearch: function gotoSearch() {var _this2 = this;
+    gotoSearch: function gotoSearch() {var _this3 = this;
       console.log('准备搜索', this.searchContent);
       // return
 
@@ -389,7 +393,7 @@ var _default =
 
         success: function success(res) {
           console.log(res.data.data.data);
-          _this2.searchResult = res.data.data.data;
+          _this3.searchResult = res.data.data.data;
         } });
 
     },

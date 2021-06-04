@@ -129,13 +129,12 @@
 					</view>
 				</view>
 				<view class="padding-xl">
-					是否进行登陆？
+					您还未登陆，是否进行登陆？
 				</view>
 				<view class="cu-bar bg-white justify-end">
 					<view class="action">
 						<button class="cu-btn line-green text-green" @tap="modalName = false">取消</button>
 						<button class="cu-btn bg-green margin-left" @tap="login()">确定</button>
-		
 					</view>
 				</view>
 			</view>
@@ -160,7 +159,6 @@
 		},
 		onLoad: function(e) {
 			this.modalName = true
-			
 
 			//获取热门岗位
 			uni.request({
@@ -170,7 +168,13 @@
 					console.log(this.hotJob);
 				}
 			})
-
+		},
+		
+		onShow: function(){
+			wx.getStorage({
+				key: 'openId',
+				fail:() => {this.modalName = true}
+			})
 		},
 
 		methods: {
