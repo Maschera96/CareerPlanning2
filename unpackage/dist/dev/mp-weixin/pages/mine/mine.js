@@ -339,7 +339,7 @@ var _default =
     },
     enshrine: function enshrine() {
       uni.navigateTo({
-        url: "/pages/mine/myArticles/myArticles" });
+        url: "/pages/mine/myMark/myMark" });
 
     },
     footprint: function footprint() {

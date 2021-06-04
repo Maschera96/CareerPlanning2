@@ -7,7 +7,7 @@
     "pages/index/company/company_details/company_details",
     "pages/list/list",
     "pages/mine/mine",
-    "pages/mine/myArticles/myArticles",
+    "pages/mine/myMark/myMark",
     "pages/mine/myPublish/myPublish",
     "pages/mine/resume/resume",
     "pages/list/article_details/article_details",
@@ -56,6 +56,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

@@ -130,7 +130,23 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -157,66 +173,54 @@ var _default =
 {
   data: function data() {
     return {
-      lists: [],
-      historyid: [] };
+      TabCur: 0,
+      jobPage: 1,
+      articlePage: 1,
+      jobList: [],
+      articleList: [],
+      openId: '' };
 
   },
 
-  onLoad: function onLoad(e) {var _this = this;
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(e) {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                wx.getStorage({
+                  key: 'openId' }));case 2:res = _context.sent;
 
-    wx.cloud.init();
-    var db = wx.cloud.database();
+              this.openId = res.data;
+              this.reqJob();
+              this.reqArticle();case 6:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
-    wx.cloud.callFunction({
-      name: 'myHistoryList' }).
-    then(function (res) {
-      _this.lists = res.result.data.data.reverse();var _iterator = _createForOfIteratorHelper(
-      _this.lists),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var item = _step.value;
-          _this.historyid.push(item._id);
-        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
-    }).catch(function (err) {
-      console.error(err);
-    });
-  },
 
   methods: {
-    gotodetails: function gotodetails(Id, type) {
-      if (type == 'article') {
-        uni.navigateTo({
-          url: '../article_details/article_details?artId=' + Id });
-
-      } else if (type == 'job') {
-        uni.navigateTo({
-          url: '../position_details/position_details?job_id=' + Id });
-
-      } else if (type == 'company') {
-        uni.navigateTo({
-          url: '../company_details/company_details?company_id=' + Id });
-
-      }
+    tabSelect: function tabSelect(e) {
+      this.TabCur = e.currentTarget.dataset.id;
     },
-
-    historydelete: function historydelete(e) {var _this2 = this;
-      var id = this.historyid;
-      wx.cloud.callFunction({
-        name: 'myHistoryDelete',
-        data: {
-          _id: id },
-
+    reqJob: function reqJob() {var _this = this;
+      uni.request({
+        url: "http://1.15.175.248:8006/my_visit/job/".concat(this.openId, "/").concat(this.jobPage, "/20"),
         success: function success(res) {
-          console.log(res);
-          uni.showToast({
-            title: '删除成功' });
-
-          wx.cloud.callFunction({
-            name: 'myHistoryList' }).
-          then(function (res) {
-            _this2.lists = res.result.data.data;
-          });
-
+          console.log(res.data.data.data);
+          _this.jobList = _this.jobList.concat(res.data.data.data);
         } });
 
+    },
+    reqArticle: function reqArticle() {var _this2 = this;
+      uni.request({
+        url: "http://1.15.175.248:8006/my_visit/article/".concat(this.openId, "/").concat(this.articlePage, "/20"),
+        success: function success(res) {
+          console.log(res.data.data.data);
+          _this2.articleList = _this2.articleList.concat(res.data.data.data);
+        } });
 
+    },
+    gotoJob: function gotoJob(indexCode) {
+      uni.navigateTo({
+        url: '/pages/index/company/company_details/jobbrowse/position_details/position_details?job_id=' + indexCode });
+
+    },
+    gotoArticle: function gotoArticle(indexCode) {
+      uni.navigateTo({
+        url: '/pages/list/article_details/article_details?artId=' + indexCode });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

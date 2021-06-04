@@ -1,23 +1,39 @@
 <template>
 	<view>
-		<view class='delete' @tap="historydelete(e)">
-			<button >删除</button>
-		</view>
-		
-		<view class="uni-list">
-			<view v-for="(value,index) in lists" :key="index" @tap="gotodetails(value.data.Id,value.type)">
-				<view class="list-body" >
-					<view class="uni-media-list-text-top">来自：{{value.type}}</view>
-					<view class="uni-media-list-text-center">{{value.data.title}}</view>
-					<view class="uni-media-list-text-bottom">
-						<view>{{value.data.content}}</view>
-					</view>	
+		<!-- 导航栏 -->
+		<scroll-view scroll-x class="bg-white nav">
+			<view class="flex text-center">
+				<view class="cu-item flex-sub" :class="index==TabCur?'text-blue cur':''" v-for="(item,index) in ['岗位','文章']" :key="index" @tap="tabSelect" :data-id="index">
+					{{item}}
 				</view>
-				<view class="line"></view>  
+			</view>
+		</scroll-view>
+		
+		<!-- 岗位 -->
+		<view v-if="TabCur === 0">
+			<view v-for="(item,index) in jobList" :key="index" @tap="gotoJob(item.indexCode)">
+				<view class="item">
+					<view class="title">{{item.jobName}}</view>
+					<view class="content">
+						<view class="time">{{item.jobPlace}} | {{item.jobType}}</view>
+						<!-- <view class="type">来自话题：{{item.articleType}}</view> -->
+					</view>
+				</view>
 			</view>
 		</view>
 		
-		
+		<!-- 文章 -->
+		<view v-if="TabCur === 1">
+			<view v-for="(item,index) in articleList" :key="index" @tap="gotoArticle(item.indexCode)">
+				<view class="item">
+					<view class="title">{{item.title}}</view>
+					<view class="content">
+						<!-- <view class="time">{{item.createTime}}</view> -->
+						<view class="type">来自话题：{{item.articleType}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -25,123 +41,88 @@
 	export default {
 		data() {
 			return {
-				lists:[],
-				historyid:[],
+				TabCur: 0,
+				jobPage: 1,
+				articlePage: 1,
+				jobList: [],
+				articleList: [],
+				openId: ''
 			}
 		},
 		
-		onLoad:function(e){
-			
-			wx.cloud.init()
-			const db = wx.cloud.database();
-			
-			wx.cloud.callFunction({
-			  name:'myHistoryList',
-			}).then(res => {
-				this.lists=res.result.data.data.reverse();
-				for(let item of this.lists){
-					this.historyid.push(item._id)
-				}
-			}).catch(err => {   
-			  console.error(err)
+		onLoad:async function(e){
+			let res = await wx.getStorage({
+				key: 'openId'
 			})
-		},
+			this.openId = res.data
+			this.reqJob()
+			this.reqArticle()
+		}, 
 	
 		methods: {
-			gotodetails:function(Id,type){
-				if(type=='article'){
-					uni.navigateTo({  
-						url:'../article_details/article_details?artId='+Id
-					})
-				}else if(type=='job'){
-					uni.navigateTo({
-						url:'../position_details/position_details?job_id='+Id
-					})   
-				}else if(type=='company'){
-					uni.navigateTo({
-						url:'../company_details/company_details?company_id='+Id
-					})
-				}
+			tabSelect(e) {
+				this.TabCur = e.currentTarget.dataset.id;
 			},
-			      
-			historydelete:function(e){
-			    let id=this.historyid;
-				wx.cloud.callFunction({   
-				  name:'myHistoryDelete',
-				  data:{
-				   _id:id,
-				  },
-				  success:res=>{
-					console.log(res)
-					uni.showToast({
-						title:'删除成功',
-					})
-					wx.cloud.callFunction({
-						name:'myHistoryList',
-					}).then(res =>{
-						this.lists=res.result.data.data;
-					})
-				
-				  },
-   
+			reqJob: function(){
+				uni.request({
+					url: `http://1.15.175.248:8006/my_visit/job/${this.openId}/${this.jobPage}/20`,
+					success: (res) => {
+						console.log(res.data.data.data);
+						this.jobList = this.jobList.concat(res.data.data.data)
+					}
 				})
-				
+			},
+			reqArticle: function (){
+				uni.request({
+					url: `http://1.15.175.248:8006/my_visit/article/${this.openId}/${this.articlePage}/20`,
+					success: (res) => {
+						console.log(res.data.data.data);
+						this.articleList = this.articleList.concat(res.data.data.data)
+					}
+				})
+			},
+			gotoJob: function(indexCode){
+				uni.navigateTo({
+					url: '/pages/index/company/company_details/jobbrowse/position_details/position_details?job_id=' + indexCode
+				})
+			},
+			gotoArticle: function(indexCode){
+				uni.navigateTo({
+					url:'/pages/list/article_details/article_details?artId='+indexCode
+				})
 			}
 		}
 	}
 </script>
 
 <style>
-	.uni-list{
-		margin-top:rpx;
-	}
-	.list-body{
-		height: 200rpx;  
-		margin-left: 30rpx;
-		margin-right: 30rpx;    
-		margin-top: 10rpx;
-	}
-	.line{
-		height:3rpx;
-		margin-left: 30rpx;
-		margin-right: 30rpx;
-		border-width: 0rpx;
-		background-color:#DDDDDD;
-		
+	.item{
+		width: 90%;
+		margin: 30rpx auto;
+		border-radius: 30rpx;
+		box-shadow: 0rpx 3rpx 15rpx #e6e6e6;
+		padding: 30rpx;
+		display: flex;
+		flex-direction: column;
 	}
 	
-	.uni-media-list-text-top {
-	    height:60rpx;
-		width:588rpx;
-	    font-size: 32upx;
-	    overflow: hidden;
-		margin-top:20rpx;
-	}
-	.uni-media-list-text-center{
-		height:auto;
-		font-size: 32rpx;
-		overflow: hidden;
+	.title{
+		font-size: 30rpx;
 		font-weight: 600;
-		}
-		
-	.uni-media-list-text-bottom {
-	    margin-top: 20rpx;
-	    font-size:30rpx;
-	    overflow: hidden;
-	    word-break: break-all;  /* break-all(允许在单词内换行。) */
-	    text-overflow: ellipsis;  /* 超出部分省略号 */
-	    display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
-	    -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
-	    -webkit-line-clamp: 1; /** 显示的行数 **/
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	
-	.delete{
-		z-index:1;
-		position: fixed;
-		height: 80rpx;
-		width: 100%;
-		bottom:0;
+	.content{
+		margin-top: 20rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 	
+	.time{}
+	
+	.type{}
 </style>
 

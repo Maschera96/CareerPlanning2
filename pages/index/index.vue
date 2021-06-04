@@ -158,8 +158,6 @@
 			}
 		},
 		onLoad: function(e) {
-			this.modalName = true
-
 			//获取热门岗位
 			uni.request({
 				url: `http://1.15.175.248:8002/job/hot_jobs/5`,

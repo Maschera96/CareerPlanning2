@@ -129,9 +129,12 @@
 				modalTitle: null
 			}
 		},
-		onLoad: function(option) {
+		onLoad: async function(option) {
 			console.log(option.job_id);
-			let [indexCode,openId] = [option.job_id,'abc123']
+			const res = await wx.getStorage({
+				key: 'openId'
+			})
+			let [indexCode,openId] = [option.job_id,res.data]
 			console.log(indexCode);
 			this.indexCode = indexCode
 			uni.request({ 
