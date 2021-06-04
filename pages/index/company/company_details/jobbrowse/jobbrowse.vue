@@ -114,7 +114,7 @@
 		
 		onLoad:function(e){
 			this.id = e.company_id
-			let [pageIndex,pageSize] = [1,5]
+			let [pageIndex,pageSize] = [1,20]
 			console.log('company_id:',this.id);
 			
 			uni.request({
