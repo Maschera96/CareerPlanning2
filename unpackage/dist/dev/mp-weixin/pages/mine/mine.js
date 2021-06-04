@@ -97,6 +97,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.modalName = "联系客服"
+    }
+
+    _vm.e1 = function($event) {
+      _vm.modalName = "反馈与帮助"
+    }
+
+    _vm.e2 = function($event) {
+      _vm.modalName = ""
+    }
+
+    _vm.e3 = function($event) {
+      _vm.modalName = ""
+    }
+
+    _vm.e4 = function($event) {
+      _vm.modalName = ""
+    }
+
+    _vm.e5 = function($event) {
+      _vm.modalName = ""
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -206,18 +231,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      gender: 1,
       name: "某某某",
       introdution: "3年工作经验",
       intro: [],
       resId: null,
-      resume: {} };
+      resume: {},
+      modalName: '' };
 
   },
-  onLoad: function onLoad(e) {
+  onLoad: function onLoad(e) {var _this = this;
+    wx.getStorage({
+      key: 'gender' }).
+    then(function (res) {
+      _this.gender = res.data;
+    });
+
     var th = this;
     uni.request({
       url: "zygh.store/api/login",
@@ -234,7 +290,7 @@ var _default =
         url: "position_details" });
 
     },
-    resumes: function resumes(e) {var _this = this;
+    resumes: function resumes(e) {var _this2 = this;
       wx.cloud.init();
       var db = wx.cloud.database();
       var _ = db.command;
@@ -246,7 +302,7 @@ var _default =
           resume_id: this.resId } }).
 
       then(function (res) {
-        _this.resume = res.result.data[0];
+        _this2.resume = res.result.data[0];
       }).catch(function (err) {
         console.error(err);
       });
@@ -289,11 +345,6 @@ var _default =
     footprint: function footprint() {
       uni.navigateTo({
         url: "/pages/mine/history/history" });
-
-    },
-    service: function service() {
-      uni.navigateTo({
-        url: "position_details" });
 
     },
     setting: function setting() {

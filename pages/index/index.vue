@@ -19,7 +19,7 @@
 			<!-- 头部层 -->
 			<view class="head">
 				<view class="cu-bar search ">
-					<icon class="action">
+					<icon class="action" style="width: 120rpx;">
 						<text class="country">全国</text>
 						<icon class="cuIcon-triangledownfill" style="font-size: 40rpx;"></icon>
 					</icon>
@@ -117,7 +117,28 @@
 					</view>
 				</view>
 			</view>
-
+		</view>
+		
+		<!-- 弹窗层 -->
+		<view class="cu-modal" :class="modalName?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">注意</view>
+					<view class="action" @tap="modalName = false">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<view class="padding-xl">
+					是否进行登陆？
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="modalName = false">取消</button>
+						<button class="cu-btn bg-green margin-left" @tap="login()">确定</button>
+		
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 
@@ -134,35 +155,12 @@
 				searchContent: '',
 				searchResult: [],
 				hotJob: [],
+				modalName: false
 			}
 		},
 		onLoad: function(e) {
-			//存入code值，用于用户登陆
-			wx.login({
-				success: (res) => {
-					wx.setStorage({
-						key: 'loginCode',
-						data: res.code
-					})
-				}
-			})
-
-			// 获取用户的openid
-			wx.cloud.callFunction({
-				name: 'login', // 打开微信云开发控制平台，左上角点击[云函数]
-				data: {},
-				success: res => {
-					// 缓存用户openid，方便后续再次调用
-					uni.setStorage({
-						key: "openId",
-						data: res.result.openid
-					});
-				},
-				fail: err => {
-					console.error('获取失败：', err);
-					reject('获取失败');
-				}
-			});
+			this.modalName = true
+			
 
 			//获取热门岗位
 			uni.request({
@@ -236,6 +234,51 @@
 				this.search = false
 				this.searchContent = ''
 				this.searchResult = []
+			},
+			login:async function() {
+				let code = ''
+				wx.login({
+					success: (res) => {
+						code = res.code
+					}
+				})
+				const res = await wx.getUserProfile({
+					desc: '用于登陆',
+				})
+				console.log(code);
+				console.log(res.rawData);
+				uni.request({
+					url:'http://1.15.175.248:8007/login',
+					method: 'POST',
+					header: {
+						'Content-Type': 'application/json'
+					},
+					data: {
+						"code": code,
+						"rawData": res.rawData
+					},
+					success: (res) => {
+						if(res.data.code !== -1){
+							wx.showToast({
+								title: '登陆成功'
+							})
+							wx.setStorage({
+								key: 'openId',
+								data: res.data.data.openId
+							})
+						}else{
+							wx.showToast({
+								icon: 'error',
+								title: '登陆失败'
+							})
+						}
+					}
+				})
+				wx.setStorage({
+					key: 'gender',
+					data: res.userInfo.gender
+				})
+				this.modalName = false
 			}
 		},
 	}
@@ -308,7 +351,6 @@
 	}
 
 	.action {
-		width: 120rpx;
 		flex-direction: row;
 		font-size: 100rpx;
 		justify-content: space-around;

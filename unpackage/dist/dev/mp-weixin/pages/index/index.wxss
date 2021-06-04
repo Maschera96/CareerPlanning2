@@ -73,7 +73,6 @@
 	margin-top: 15rpx;
 }
 .action {
-	width: 120rpx;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;

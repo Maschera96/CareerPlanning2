@@ -118,6 +118,14 @@ var render = function() {
     _vm.e0 = function($event) {
       _vm.search = true
     }
+
+    _vm.e1 = function($event) {
+      _vm.modalName = false
+    }
+
+    _vm.e2 = function($event) {
+      _vm.modalName = false
+    }
   }
 
   _vm.$mp.data = Object.assign(
@@ -159,7 +167,28 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 33));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -288,41 +317,18 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   data: function data() {
-    return {
+    return _defineProperty({
       listData: [],
       modalName: false,
       search: false,
       searchContent: '',
       searchResult: [],
-      hotJob: [] };
+      hotJob: [] }, "modalName",
+    false);
 
   },
   onLoad: function onLoad(e) {var _this = this;
-    //存入code值，用于用户登陆
-    wx.login({
-      success: function success(res) {
-        wx.setStorage({
-          key: 'loginCode',
-          data: res.code });
-
-      } });
-
-
-    // 获取用户的openid
-    wx.cloud.callFunction({
-      name: 'login', // 打开微信云开发控制平台，左上角点击[云函数]
-      data: {},
-      success: function success(res) {
-        // 缓存用户openid，方便后续再次调用
-        uni.setStorage({
-          key: "openId",
-          data: res.result.openid });
-
-      },
-      fail: function fail(err) {
-        console.error('获取失败：', err);
-        reject('获取失败');
-      } });
+    this.modalName = true;
 
 
     //获取热门岗位
@@ -397,7 +403,51 @@ var _default =
       this.search = false;
       this.searchContent = '';
       this.searchResult = [];
-    } } };exports.default = _default;
+    },
+    login: function () {var _login = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var code, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                code = '';
+                wx.login({
+                  success: function success(res) {
+                    code = res.code;
+                  } });_context.next = 4;return (
+
+                  wx.getUserProfile({
+                    desc: '用于登陆' }));case 4:res = _context.sent;
+
+                console.log(code);
+                console.log(res.rawData);
+                uni.request({
+                  url: 'http://1.15.175.248:8007/login',
+                  method: 'POST',
+                  header: {
+                    'Content-Type': 'application/json' },
+
+                  data: {
+                    "code": code,
+                    "rawData": res.rawData },
+
+                  success: function success(res) {
+                    if (res.data.code !== -1) {
+                      wx.showToast({
+                        title: '登陆成功' });
+
+                      wx.setStorage({
+                        key: 'openId',
+                        data: res.data.data.openId });
+
+                    } else {
+                      wx.showToast({
+                        icon: 'error',
+                        title: '登陆失败' });
+
+                    }
+                  } });
+
+                wx.setStorage({
+                  key: 'gender',
+                  data: res.userInfo.gender });
+
+                this.modalName = false;case 10:case "end":return _context.stop();}}}, _callee, this);}));function login() {return _login.apply(this, arguments);}return login;}() } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
