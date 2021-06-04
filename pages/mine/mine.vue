@@ -9,7 +9,7 @@
 				    <!-- <view class="cu-tag badge cuIcon-male bg-blue" style=" width: 40%; height:40%;
 					font-size: 25upx; font-weight: 500;"> -->
 						<open-data type="userAvatarUrl" class="ava round" style="overflow: hidden;"></open-data>
-						<view class="tag badge cuIcon-male bg-blue"></view>
+						<view class="tag badge" :class="[gender === 1?'cuIcon-male bg-blue':'cuIcon-female bg-pink']"></view>
 					<!-- </view> -->
 				</view>
 				<view class="culll">
@@ -52,7 +52,7 @@
 					<text class="text-black margin-left-sm">我的足迹</text>
 				</view>
 			</view>
-			<view class="cu-item arrow padding drawStyle" @tap="service">
+			<view class="cu-item arrow padding drawStyle" @tap="modalName = '联系客服'">
 				<view class="content fontStyle">
 					<text class="cuIcon-service text-grey"></text>
 					<text class="text-black margin-left-sm">联系客服</text>
@@ -64,10 +64,33 @@
 					<text class="text-black margin-left-sm">设置</text>
 				</view>
 			</view>
-			<view class="cu-item arrow padding drawStyle" @tap="assistance">
+			<view class="cu-item arrow padding drawStyle" @tap="modalName = '反馈与帮助'">
 				<view class="content fontStyle">
 					<text class="cuIcon-info text-grey"></text>
 					<text class="text-black margin-left-sm">反馈与帮助</text>
+				</view>
+			</view>
+		</view>
+		
+		<!-- 弹窗层 -->
+		<view class="cu-modal" :class="modalName?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">注意</view>
+					<view class="action" @tap="modalName = ''">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<view class="padding-xl">
+					确定要打开 “{{modalName}}" 吗？
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="modalName = ''">取消</button>
+						<button v-if="modalName === '联系客服'" class="cu-btn bg-green margin-left" open-type="contact" @tap="modalName = ''">确定</button>
+						<button v-if="modalName === '反馈与帮助'" class="cu-btn bg-green margin-left" open-type="feedback" @tap="modalName = ''">确定</button>
+		
+					</view>
 				</view>
 			</view>
 		</view>
@@ -78,14 +101,22 @@
 	export default {
 		data() {
 			return {
+				gender: 1,
 				name:"某某某",
 				introdution:"3年工作经验",
 				intro:[],
 				resId:null,
-				resume:{}
+				resume:{},
+				modalName: ''
 		    }
 	    },
 		onLoad:function(e){
+			wx.getStorage({
+				key: 'gender'
+			}).then(res => {
+				this.gender = res.data
+			})
+			
 			let th=this;
 			uni.request({
 				url:"zygh.store/api/login",
@@ -157,11 +188,6 @@
 			footprint:function(){
 				uni.navigateTo({
 					url:"/pages/mine/history/history"
-				})
-			},
-			service:function(){
-				uni.navigateTo({
-					url:"position_details"
 				})
 			},
 			setting:function(){
