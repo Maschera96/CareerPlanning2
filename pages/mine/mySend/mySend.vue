@@ -4,18 +4,20 @@
 		<scroll-view scroll-x class="bg-white nav">
 			<view class="flex text-center">
 				<view class="cu-item flex-sub text-blue cur">
-					文章
+					岗位
 				</view>
 			</view>
 		</scroll-view>
 		
-		<!-- 列表 -->
-		<view v-for="(item,index) in articleList" :key="index" @tap="gotoArticle(item.indexCode)">
-			<view class="item">
-				<view class="title">{{item.title}}</view>
-				<view class="content">
-					<!-- <view class="time">{{item.createTime}}</view> -->
-					<view class="type">来自话题：{{item.articleType}}</view>
+		<!-- 岗位 -->
+		<view v-if="TabCur === 0">
+			<view v-for="(item,index) in jobList" :key="index" @tap="gotoJob(item.indexCode)">
+				<view class="item">
+					<view class="title">{{item.jobName}}</view>
+					<view class="content">
+						<view class="time">{{item.jobPlace}} | {{item.jobType}}</view>
+						<!-- <view class="type">来自话题：{{item.articleType}}</view> -->
+					</view>
 				</view>
 			</view>
 		</view>
@@ -26,8 +28,9 @@
 	export default {
 		data() {
 			return {
-				articlePage: 1,
-				articleList: [],
+				TabCur: 0,
+				jobPage: 1,
+				jobList: [],
 				openId: ''
 			}
 		},
@@ -37,24 +40,27 @@
 				key: 'openId'
 			})
 			this.openId = res.data
-			this.reqArticle()
+			this.reqJob()
 		}, 
 	
 		methods: {
-			reqArticle: function (){
+			tabSelect(e) {
+				this.TabCur = e.currentTarget.dataset.id;
+			},
+			reqJob: function(){
 				uni.request({
-					url: `http://1.15.175.248:8006/my_publish/list/${this.openId}/${this.articlePage}/20`,
+					url: `http://1.15.175.248:8006/mine/resume/my_send/${this.openId}/${this.jobPage}/20`,
 					success: (res) => {
-						console.log(res.data.data.data);
-						this.articleList = this.articleList.concat(res.data.data.data)
+						console.log(res);
+						this.jobList = this.jobList.concat(res.data.data.data)
 					}
 				})
 			},
-			gotoArticle: function(indexCode){
+			gotoJob: function(indexCode){
 				uni.navigateTo({
-					url:'/pages/list/article_details/article_details?artId='+indexCode
+					url: '/pages/index/company/company_details/jobbrowse/position_details/position_details?job_id=' + indexCode
 				})
-			}
+			},
 		}
 	}
 </script>

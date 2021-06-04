@@ -182,13 +182,16 @@ var _default =
 
   },
 
-  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(e) {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+  onShow: function () {var _onShow = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(e) {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                 wx.getStorage({
                   key: 'openId' }));case 2:res = _context.sent;
 
               this.openId = res.data;
+              this.jobList = [];
               this.reqJob();
-              this.reqArticle();case 6:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+              this.articleList = [];
+              this.reqArticle();case 8:case "end":return _context.stop();}}}, _callee, this);}));function onShow(_x) {return _onShow.apply(this, arguments);}return onShow;}(),
+
 
 
   methods: {
@@ -197,7 +200,7 @@ var _default =
     },
     reqJob: function reqJob() {var _this = this;
       uni.request({
-        url: "http://1.15.175.248:8006/my_visit/job/".concat(this.openId, "/").concat(this.jobPage, "/20"),
+        url: "http://1.15.175.248:8006/my_collection/job/".concat(this.openId, "/").concat(this.jobPage, "/20"),
         success: function success(res) {
           console.log(res.data.data.data);
           _this.jobList = _this.jobList.concat(res.data.data.data);
@@ -206,7 +209,7 @@ var _default =
     },
     reqArticle: function reqArticle() {var _this2 = this;
       uni.request({
-        url: "http://1.15.175.248:8006/my_visit/article/".concat(this.openId, "/").concat(this.articlePage, "/20"),
+        url: "http://1.15.175.248:8006/my_collection/article/".concat(this.openId, "/").concat(this.articlePage, "/20"),
         success: function success(res) {
           console.log(res.data.data.data);
           _this2.articleList = _this2.articleList.concat(res.data.data.data);

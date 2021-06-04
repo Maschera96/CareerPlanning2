@@ -106,6 +106,16 @@
 						data: res
 					})
 					uni.navigateBack({})
+				}).catch(res => {
+					wx.setStorage({
+						key: 'no_finished',
+						data: [{
+							type: this.type,
+							target: this.detail,
+							date: this.date
+						}]
+					})
+					uni.navigateBack({})
 				})
 			}
 		}

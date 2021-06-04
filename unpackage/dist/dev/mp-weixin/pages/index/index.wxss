@@ -1,10 +1,11 @@
 
 .mainContent {
+	margin-top: 114rpx;
 	background-color: #FFFFFF;
 	padding-bottom: 60rpx;
 }
 .cover {
-	position: absolute;
+	position: fixed;
 	left: 0px;
 	top: 0px;
 	background: rgba(0, 0, 0, 0.4);
@@ -12,16 +13,19 @@
 	/*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
 	height: 100%;
 	/* display:none; */
-	z-Index: 100;
+	z-Index: 1;
+}
+.search{
+	background-color: #FFFFFF;
 }
 .searchBox {
 	width: 100%;
 	background-color: #FFFFFF;
 	padding: 20rpx 20rpx;
-	position: absolute;
+	position: fixed;
 	top: 104rpx;
 	border-radius: 0rpx 0rpx 20rpx 20rpx;
-	z-index: 200;
+	z-index: 20000;
 }
 .searchItem {
 	display: -webkit-box;
@@ -55,6 +59,7 @@
 	background-color: #FFFFFF;
 }
 .head {
+	position: fixed;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -64,7 +69,7 @@
 	        flex-direction: row;
 	-webkit-justify-content: space-around;
 	        justify-content: space-around;
-	z-index: 200;
+	z-index: 20000;
 	background-color: #FFFFFF;
 }
 .cu-bar {

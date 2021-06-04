@@ -191,11 +191,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-var newitem = [],
-newcities = [];var _default =
-
-
+var _default =
 {
   data: function data() {
     return {
@@ -239,11 +235,12 @@ newcities = [];var _default =
 
       {
         value: "11",
-        cityname: "深圳" }] };
+        cityname: "深圳" }],
 
 
 
-
+      type: ['研发', '销售', '管理', '运营'],
+      city: ['杭州', '上海', '北京', '广州', '深圳'] };
 
   },
 
@@ -260,22 +257,6 @@ newcities = [];var _default =
         console.log(_this.listData);
       } });
 
-    // wx.cloud.init()
-    // const db = wx.cloud.database();
-    // const _ = db.command;
-    // wx.cloud.callFunction({
-    // 	name:'company_jobsList',
-    // 	data: {   
-    // 		company_id: this.id
-    // 	}
-    // }).then(res => {
-    // 	this.listData = res.result.data.data
-    // 	console.log(res)
-
-    // }).catch(err => {
-    // 	console.error(err)
-    // })
-
   },
 
 
@@ -283,54 +264,47 @@ newcities = [];var _default =
 
   methods: {
     checkboxChange1: function checkboxChange1(e) {var _this2 = this;
-      var items = this.items,
-      values = e.detail.value;
-
+      var items = this.items;
+      var values = e.detail.value;
+      var newitem = [];
       newitem.splice(0, newitem.length);
 
-      for (var i = 0, lenI = items.length; i < lenI; ++i) {
+      for (var i = 0, lenI = items.length; i < lenI; i++) {
         var item = items[i];
         if (values.includes(item.value)) {
           this.$set(item, 'checked', true);
           newitem.push(item.name);
-          console.log(newitem);
         } else {
           this.$set(item, 'checked', false);
         }
       }
+      if (newitem.length === 0) {newitem = ['研发', '销售', '管理', '运营'];}
+      this.type = newitem;
+      var _jobType = this.type.join(' ');
+      var _jobPlace = this.city.join(' ');
 
-      wx.cloud.callFunction({
-        name: 'company_jobsList',
+      uni.request({
+        url: "http://1.15.175.248:8004/search/job/1/20",
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json' },
+
         data: {
-          company_id: comp_id } }).
+          'jobPlaces': _jobPlace,
+          'jobTypes': _jobType,
+          'companyIndexCode': this.id },
 
-      then(function (res) {
-        var len = _this2.listData.length;
-        _this2.listData.splice(0, len);
-        for (var _i = 0; _i < res.result.data.data.length; _i++) {
-          if (newitem.includes(res.result.data.data[_i].category) && newcities.includes(res.result.data.data[_i].place[0]) ||
-          newitem.includes(res.result.data.data[_i].category) && newcities.includes(res.result.data.data[_i].place[1])) {
-            _this2.listData.push(res.result.data.data[_i]);
-          } else if (newitem.includes(res.result.data.data[_i].category)) {
-            _this2.listData.push(res.result.data.data[_i]);
-          } else if (newitem.length == 0 && newcities.length == 0) {
-            _this2.listData = res.result.data.data;
-          } else if (newitem.length == 0) {
-            if (newcities.includes(res.result.data.data[_i].place[0]) || newcities.includes(res.result.data.data[_i].place[1])) {
-              _this2.listData.push(res.result.data.data[_i]);
-            }
-          }
-        }
-        console.log(_this2.listData);
-      }).catch(function (err) {
-        console.error(err);
-      });
+        success: function success(res) {
+          console.log(res);
+          _this2.listData = res.data.data.data;
+        } });
+
     },
 
     checkboxChange2: function checkboxChange2(e) {var _this3 = this;
-      var items = this.cities,
-      values = e.detail.value;
-
+      var items = this.cities;
+      var values = e.detail.value;
+      var newcities = [];
       newcities.splice(0, newcities.length);
 
       for (var i = 0, lenI = items.length; i < lenI; ++i) {
@@ -338,37 +312,31 @@ newcities = [];var _default =
         if (values.includes(item.value)) {
           this.$set(item, 'checked', true);
           newcities.push(item.cityname);
-          console.log(newcities);
         } else {
           this.$set(item, 'checked', false);
         }
       }
+      if (newcities.length === 0) {newcities = ['杭州', '上海', '北京', '广州', '深圳'];}
+      this.city = newcities;
+      var _jobType = this.type.join(' ');
+      var _jobPlace = this.city.join(' ');
 
-      wx.cloud.callFunction({
-        name: 'company_jobsList',
+      uni.request({
+        url: "http://1.15.175.248:8004/search/job/1/20",
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json' },
+
         data: {
-          company_id: comp_id } }).
+          'jobPlaces': _jobPlace,
+          'jobTypes': _jobType,
+          'companyIndexCode': this.id },
 
-      then(function (res) {
-        var len = _this3.listData.length;
-        _this3.listData.splice(0, len);
-        for (var _i2 = 0; _i2 < res.result.data.data.length; _i2++) {
-          if (newitem.includes(res.result.data.data[_i2].category) && newcities.includes(res.result.data.data[_i2].place)) {
-            _this3.listData.push(res.result.data.data[_i2]);
-          } else if (newcities.includes(res.result.data.data[_i2].place[0]) || newcities.includes(res.result.data.data[_i2].place[1])) {
-            _this3.listData.push(res.result.data.data[_i2]);
-          } else if (newitem.length == 0 && newcities.length == 0) {
-            _this3.listData = res.result.data.data;
-          } else if (newcities.length == 0) {
-            if (newitem.includes(res.result.data.data[_i2].category)) {
-              _this3.listData.push(res.result.data.data[_i2]);
-            }
-          }
-        }
-        console.log(_this3.listData);
-      }).catch(function (err) {
-        console.error(err);
-      });
+        success: function success(res) {
+          console.log(res);
+          _this3.listData = res.data.data.data;
+        } });
+
     },
 
     gotomorecities: function gotomorecities(e) {

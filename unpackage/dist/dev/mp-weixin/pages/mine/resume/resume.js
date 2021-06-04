@@ -330,6 +330,10 @@ var _default =
         url: "http://1.15.175.248:8002/job/".concat(this.jobId, "/get/resume/1/5"),
         success: function success(res) {
           console.log(res);
+          wx.showToast({
+            title: '投递成功' });
+
+          setTimeout(function () {uni.navigateBack({});}, 1500);
         } });
 
     } } };exports.default = _default;

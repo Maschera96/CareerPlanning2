@@ -334,7 +334,7 @@ var _default =
     },
     commpany: function commpany() {
       uni.navigateTo({
-        url: "position_details" });
+        url: "/pages/mine/mySend/mySend" });
 
     },
     enshrine: function enshrine() {

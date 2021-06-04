@@ -1,39 +1,38 @@
 <template>
 	<view class="content">
+		<!-- 弹窗层 -->
+		<view v-if="search">
+			<view @tap="close" class="cover"></view>
+			<view class="searchBox">
+				<view v-for="(item,index) in searchResult" :key="index">
+					<view class="searchItem" @tap="gotoJob(item.indexCode)">
+						<view class="itemType">{{item.jobType}}</view>
+						<view class="itemPlace">{{item.jobPlace}}</view>
+						<view class="itemName">{{item.jobName}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<!-- 头部层 -->
+		<view class="head">
+			<view class="cu-bar search ">
+				<icon class="action" style="width: 120rpx;">
+					<text class="country">全国</text>
+					<icon class="cuIcon-triangledownfill" style="font-size: 40rpx;"></icon>
+				</icon>
+				<view class="search-form round">
+					<text class="cuIcon-search"></text>
+					<input type="text" placeholder="搜索职位名称" confirm-type="search" v-model="searchContent"
+						@focus="search = true" @confirm="gotoSearch()"></input>
+				</view>
+			</view>
+			<view class="icon-phone">
+				<icon class='cuIcon-phone' style="color:#00000;font-size: 200%;"></icon>
+			</view>
+		</view>
+		
 		<view class="mainContent">
-
-			<!-- 弹窗层 -->
-			<view v-if="search">
-				<view @tap="close" class="cover"></view>
-				<view class="searchBox">
-					<view v-for="(item,index) in searchResult" :key="index">
-						<view class="searchItem" @tap="gotoJob(item.indexCode)">
-							<view class="itemType">{{item.jobType}}</view>
-							<view class="itemPlace">{{item.jobPlace}}</view>
-							<view class="itemName">{{item.jobName}}</view>
-						</view>
-					</view>
-				</view>
-			</view>
-
-			<!-- 头部层 -->
-			<view class="head">
-				<view class="cu-bar search ">
-					<icon class="action" style="width: 120rpx;">
-						<text class="country">全国</text>
-						<icon class="cuIcon-triangledownfill" style="font-size: 40rpx;"></icon>
-					</icon>
-					<view class="search-form round">
-						<text class="cuIcon-search"></text>
-						<input type="text" placeholder="搜索职位名称" confirm-type="search" v-model="searchContent"
-							@focus="search = true" @confirm="gotoSearch()"></input>
-					</view>
-				</view>
-				<view class="icon-phone">
-					<icon class='cuIcon-phone' style="color:#00000;font-size: 200%;"></icon>
-				</view>
-			</view>
-
 			<!-- 卡片层 -->
 			<view class="card">
 				<image class="cardp" src=../../static/index_pic/title.jpg></image>
@@ -166,6 +165,26 @@
 					console.log(this.hotJob);
 				}
 			})
+			
+			// 为规划页面作准备
+			wx.getStorage({
+				key: 'no_finished',
+				fail: () => {
+					wx.setStorage({
+						key : 'no_finished',
+						data: []
+					})
+				}
+			})
+			wx.getStorage({
+				key: 'finished',
+				fail: () => {
+					wx.setStorage({
+						key : 'finished',
+						data: []
+					})
+				}
+			})
 		},
 		
 		onShow: function(){
@@ -193,7 +212,7 @@
 			},
 			gotoCourse: function() {
 				uni.navigateTo({
-					url: '/pages/index/college/college'
+					url: '/pages/index/course/course'
 				})
 			},
 			gotoPlanning: function() {
@@ -289,12 +308,13 @@
 <style>
 
 	.mainContent {
+		margin-top: 114rpx;
 		background-color: #FFFFFF;
 		padding-bottom: 60rpx;
 	}
 
 	.cover {
-		position: absolute;
+		position: fixed;
 		left: 0px;
 		top: 0px;
 		background: rgba(0, 0, 0, 0.4);
@@ -302,17 +322,21 @@
 		/*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
 		height: 100%;
 		/* display:none; */
-		z-Index: 100;
+		z-Index: 1;
+	}
+	
+	.search{
+		background-color: #FFFFFF;
 	}
 
 	.searchBox {
 		width: 100%;
 		background-color: #FFFFFF;
 		padding: 20rpx 20rpx;
-		position: absolute;
+		position: fixed;
 		top: 104rpx;
 		border-radius: 0rpx 0rpx 20rpx 20rpx;
-		z-index: 200;
+		z-index: 20000;
 	}
 
 	.searchItem {
@@ -339,10 +363,11 @@
 	}
 
 	.head {
+		position: fixed;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
-		z-index: 200;
+		z-index: 20000;
 		background-color: #FFFFFF;
 	}
 

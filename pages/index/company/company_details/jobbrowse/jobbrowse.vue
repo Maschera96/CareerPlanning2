@@ -60,10 +60,6 @@
 </template>
 
 <script>
-	let newitem=[],
-		newcities=[];
-	
-		
 	export default {
 		data() {
 			return {
@@ -109,9 +105,10 @@
 						value:"11",
 						cityname:"深圳"
 					}
-						
-				]
+				],
 				
+				type: ['研发','销售','管理','运营'],
+				city: ['杭州','上海','北京','广州','深圳']
 			}
 		},
 		
@@ -128,22 +125,6 @@
 					console.log(this.listData);
 				}
 			})
-			// wx.cloud.init()
-			// const db = wx.cloud.database();
-			// const _ = db.command;
-			// wx.cloud.callFunction({
-			// 	name:'company_jobsList',
-			// 	data: {   
-			// 		company_id: this.id
-			// 	}
-			// }).then(res => {
-			// 	this.listData = res.result.data.data
-			// 	console.log(res)
-				
-			// }).catch(err => {
-			// 	console.error(err)
-			// })
-			
 		}, 
 		
 		
@@ -151,92 +132,79 @@
 		
 		methods: {	
 			checkboxChange1:function(e){
-				let items=this.items,
-					values=e.detail.value;
+				let items = this.items
+				let values = e.detail.value
+				let newitem = []
+				newitem.splice(0,newitem.length)
 				
-				newitem.splice(0,newitem.length);	
-				
-				for(var i=0,lenI=items.length;i<lenI;++i){ 
+				for(let i = 0, lenI = items.length; i<lenI; i++){ 
 					let item=items[i];
 					if(values.includes(item.value)){
 						this.$set(item,'checked',true)
 						newitem.push(item.name);
-						console.log(newitem);
 					}else{
 						this.$set(item,'checked',false)
 					}
 				}
+				if(newitem.length === 0){newitem = ['研发','销售','管理','运营']}
+				this.type = newitem
+				let _jobType = this.type.join(' ')
+				let _jobPlace = this.city.join(' ')
 				
-				 wx.cloud.callFunction({
-					name:'company_jobsList',
-					data: {   
-						company_id:comp_id
+				uni.request({
+					url: `http://1.15.175.248:8004/search/job/1/20`,
+					method: 'POST',
+					header: {
+						'Content-Type': 'application/json'
+					},
+					data: {
+						'jobPlaces': _jobPlace,
+						'jobTypes': _jobType,
+						'companyIndexCode': this.id
+					},
+					success: (res) => {
+						console.log(res);
+						this.listData = res.data.data.data
 					}
-				}).then(res => {
-					let len=this.listData.length
-					this.listData.splice(0,len)
-					for(let i=0;i<res.result.data.data.length;i++){  
-						if((newitem.includes(res.result.data.data[i].category)&&newcities.includes(res.result.data.data[i].place[0]))||
-						(newitem.includes(res.result.data.data[i].category)&&newcities.includes(res.result.data.data[i].place[1]))){
-							this.listData.push(res.result.data.data[i]);
-						}else if(newitem.includes(res.result.data.data[i].category)){
-							this.listData.push(res.result.data.data[i])
-						}else if(newitem.length==0&&newcities.length==0){
-							this.listData=res.result.data.data
-						}else if(newitem.length==0){
-							if(newcities.includes(res.result.data.data[i].place[0])||newcities.includes(res.result.data.data[i].place[1])){
-								this.listData.push(res.result.data.data[i]);
-							}
-						}
-					}
-					console.log(this.listData)
-				}).catch(err => {
-					console.error(err)
-				}) 
+				})
 			},
 			
 			checkboxChange2:function(e){
-				let items=this.cities,
-					values=e.detail.value;
-				
+				let items=this.cities
+				let values = e.detail.value
+				let newcities = []
 				newcities.splice(0,newcities.length);
-						  
+				
 				for(var i=0,lenI=items.length;i<lenI;++i){
 					let item=items[i];
 					if(values.includes(item.value)){
 						this.$set(item,'checked',true);     
 						newcities.push(item.cityname);
-						console.log(newcities);
 					}else{
 						this.$set(item,'checked',false)
 					}
 				}
+				if(newcities.length === 0){newcities = ['杭州','上海','北京','广州','深圳']}
+				this.city = newcities
+				let _jobType = this.type.join(' ')
+				let _jobPlace = this.city.join(' ')
 				
-				wx.cloud.callFunction({
-					name:'company_jobsList',
-					data: {   
-						company_id:comp_id
-					}    
-				}).then(res => {
-					let len=this.listData.length  
-					this.listData.splice(0,len)     
-					for(let i=0;i<res.result.data.data.length;i++){
-						if(newitem.includes(res.result.data.data[i].category)&&newcities.includes(res.result.data.data[i].place)){
-							this.listData.push(res.result.data.data[i])
-						}else if(newcities.includes(res.result.data.data[i].place[0])||newcities.includes(res.result.data.data[i].place[1])){  
-							this.listData.push(res.result.data.data[i]);
-						}else if(newitem.length==0&&newcities.length==0){
-							this.listData=res.result.data.data 
-						}else if(newcities.length==0){
-							if(newitem.includes(res.result.data.data[i].category)){
-								this.listData.push(res.result.data.data[i]);
-							}
-						}
+				uni.request({
+					url: `http://1.15.175.248:8004/search/job/1/20`,
+					method: 'POST',
+					header: {
+						'Content-Type': 'application/json'
+					},
+					data: {
+						'jobPlaces': _jobPlace,
+						'jobTypes': _jobType,
+						'companyIndexCode': this.id
+					},
+					success: (res) => {
+						console.log(res);
+						this.listData = res.data.data.data
 					}
-					console.log(this.listData)
-				}).catch(err => { 
-					console.error(err)
-				})   
+				})
 			},
 		
 		gotomorecities:function(e){
@@ -290,6 +258,9 @@
 		box-shadow: 5rpx 5rpx 5rpx 2rpx #DDDDDD;
 		font-size: 36rpx;
 		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 	
 	

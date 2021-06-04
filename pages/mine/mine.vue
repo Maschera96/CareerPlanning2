@@ -3,7 +3,7 @@
 	<view class="cul">
 		
 		<!-- 头部信息层 -->
-		<view class="bg-blue text-left shadow-blur" style="padding-bottom: 150rpx;">
+		<view class="bg-blue text-left" style="padding-bottom: 150rpx;">
 			<view class="ro top">
 				<view class="avatar round">
 				    <!-- <view class="cu-tag badge cuIcon-male bg-blue" style=" width: 40%; height:40%;
@@ -177,7 +177,7 @@
 			},
 			commpany:function(){
 				uni.navigateTo({
-					url:"position_details"
+					url:"/pages/mine/mySend/mySend"
 				})
 			},
 			enshrine:function(){

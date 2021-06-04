@@ -145,18 +145,7 @@
 		},
 		
 		onShow: function() {
-			
-			
-			const unfiniPro = wx.getStorage({key: 'no_finished'}).then((res) => {
-				return this.updateNoFinishTargets(res.data)
-			})
-			const finiPro = wx.getStorage({key: 'finished'}).then((res) => {
-				return this.updateFinishTargets(res.data)
-			});
-			Promise.all([finiPro,unfiniPro]).then((result) => {
-				this.quotient = parseInt(result[0] / (result[0] + result[1]) * 100);
-				[this.fini,this.unfini] = result
-			})
+			this.updateProgress()
 		},
 
 		methods: {
@@ -204,6 +193,19 @@
 				return res.length
 			},
 			
+			updateProgress(){
+				const unfiniPro = wx.getStorage({key: 'no_finished'}).then((res) => {
+					return this.updateNoFinishTargets(res.data)
+				})
+				const finiPro = wx.getStorage({key: 'finished'}).then((res) => {
+					return this.updateFinishTargets(res.data)
+				});
+				Promise.all([finiPro,unfiniPro]).then((result) => {
+					this.quotient = parseInt(result[0] / (result[0] + result[1]) * 100);
+					[this.fini,this.unfini] = result
+				})
+			},
+			
 			async onClick($event, item, index) {
 				const un_finiItem = await wx.getStorage({key : 'no_finished'})
 				const changeItem = un_finiItem.data.splice(index,1)
@@ -227,6 +229,7 @@
 							title: '目标已删除',
 						})
 					}
+					this.updateProgress()
 				})
 			},
 			change(open) {
@@ -253,10 +256,11 @@
 					key : 'no_finished',
 				})
 				this.updateNoFinishTargets(un_finiItem.data.concat(changeItem))
-				wx.setStorage({
+				await wx.setStorage({
 					key : 'no_finished',
 					data: this.noFinishTargets
 				})
+				this.updateProgress()
 			},
 		}
 	}

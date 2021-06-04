@@ -11,7 +11,7 @@
 					<view class="cul" style="width: 73%; padding: 30rpx;">
 						<view class="ro">
 							<text class="text-title">{{item.companyName}}</text>
-							<text class="text-introtion_">在招职位&nbsp;6</text>
+							<text class="text-introtion_">在招职位&nbsp;{{item.jobsCount}}</text>
 						</view>
 						<text class="text-introtion">
 							{{item.companyAddress.split('市')[0]}}&ensp;|&ensp;{{item.financing}}&ensp;|&ensp;{{item.companyType}}</text>

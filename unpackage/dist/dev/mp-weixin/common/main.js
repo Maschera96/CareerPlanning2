@@ -14,6 +14,10 @@ _vue.default.config.productionTip = false;
 
 _App.default.mpType = 'app';
 
+wx.setEnableDebug({
+  enableDebug: true });
+
+
 var app = new _vue.default(_objectSpread({},
 _App.default));
 
@@ -91,6 +95,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 {
   onLaunch: function onLaunch() {
     console.log('App Launch');
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
     } else

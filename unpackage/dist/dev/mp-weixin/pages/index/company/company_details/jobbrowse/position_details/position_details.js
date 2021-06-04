@@ -286,64 +286,60 @@ var _default =
       id: null,
       modalName: null,
       modalType: null,
-      modalTitle: null };
+      modalTitle: null,
+      mark: null,
+      btnMessage: '立即收藏' };
 
   },
-  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(option) {var _this = this;var res, _ref, indexCode, openId;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(option) {var _this = this;var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
               console.log(option.job_id);_context.next = 3;return (
                 wx.getStorage({
-                  key: 'openId' }));case 3:res = _context.sent;_ref =
+                  key: 'openId' }));case 3:res = _context.sent;
 
-              [option.job_id, res.data], indexCode = _ref[0], openId = _ref[1];
-              console.log(indexCode);
-              this.indexCode = indexCode;
+              this.openId = res.data;
+              this.indexCode = option.job_id;
               uni.request({
-                url: "http://1.15.175.248:8002/job/get/".concat(indexCode, "/").concat(openId),
+                url: "http://1.15.175.248:8002/job/get/".concat(this.indexCode, "/").concat(this.openId),
                 success: function success(res) {
                   _this.job_ = res.data.data;
                   console.log(_this.job_);
+                  _this.mark = res.data.data.isCollectedByCurrentUser;
+                  if (_this.mark) {_this.btnMessage = '已收藏';} else
+                  {_this.btnMessage = '立即收藏';}
                 } });
 
 
               //查询是否收藏
-            case 8:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
+            case 7:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
 
   methods: {
     Collect: function Collect() {
-      this.collect = !this.collect;
+      this.mark = !this.mark;
       //若还未收藏
-      var th = this;
-      if (this.collect == true) {
-        wx.cloud.callFunction({
-          name: 'jobDetail',
-          data: {
-            job_id: this.posId,
-            company_id: this.comId } }).
+      if (this.mark) {
+        this.btnMessage = '已收藏';
+        uni.request({
+          url: "http://1.15.175.248:8002/job/collect/".concat(this.indexCode, "/").concat(this.openId),
+          success: function success(res) {
+            if (res.data.code === 0) {
+              wx.showToast({ title: '收藏成功' });
+            }
+          } });
 
-        then(function (res) {
-          wx.showToast({
-            title: '收藏成功' });
-
-        }).catch(function (err) {
-          console.error(err);
-        });
-        //若已收藏
-      } else {
-        wx.cloud.callFunction({
-          name: 'jobDetail',
-          data: {
-            job_id: this.posId,
-            company_id: this.comId } }).
-
-        then(function (res) {
-          wx.showToast({
-            title: '已取消收藏' });
-
-        }).catch(function (err) {
-          console.error(err);
-        });
       }
+      //若已收藏
+      else {
+          this.btnMessage = '立即收藏';
+          uni.request({
+            url: "http://1.15.175.248:8002/job/cancel_collect/".concat(this.indexCode, "/").concat(this.openId),
+            success: function success(res) {
+              if (res.data.code === 0) {
+                wx.showToast({ title: '取消收藏成功' });
+              }
+            } });
+
+        }
     },
     myDialog: function myDialog(type, title) {
       if (type === 'lesson') {

@@ -5,6 +5,10 @@ Vue.config.productionTip = false
 
 App.mpType = 'app'
 
+wx.setEnableDebug({
+  enableDebug: true
+})
+
 const app = new Vue({
     ...App
 })

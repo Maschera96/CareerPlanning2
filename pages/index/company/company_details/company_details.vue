@@ -21,7 +21,7 @@
 				<text class="tag">移动互联网</text>
 				<text class='production_detail' :class= "modalName?'ellipsis':'unellipsis'">{{company.introduction}}</text>
 				<view class='bg-white-ellipsis' @tap ="changeData">
-					<image class='img-ellipsis' :src= "modalName?'../../static/company_details/ellipsis.png':'../../static/company_details/unellipsis.png'"></image>
+					<image class='img-ellipsis' :src= "modalName?'/static/company_details/ellipsis.png':'/static/company_details/unellipsis.png'"></image>
 				</view>
 			</view>	
 			

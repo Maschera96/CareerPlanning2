@@ -57,6 +57,12 @@
 			}
 		},
 		{
+			"path":"pages/mine/mySend/mySend",
+			"style":{
+				"navigationBarTitleText":"我的投递"
+			}
+		},
+		{
 			"path":"pages/mine/resume/resume",
 			"style":{
 				"navigationBarTitleText":"我的简历"

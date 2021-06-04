@@ -59,6 +59,17 @@
           "pathName": "pages/mine/history/history",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/mine/myPublish/myPublish",
+          "pathName": "pages/mine/myPublish/myPublish",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/mine/mySend/mySend",
+          "pathName": "pages/mine/mySend/mySend",
+          "scene": null
         }
       ]
     }

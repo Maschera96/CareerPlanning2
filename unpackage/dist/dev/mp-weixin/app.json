@@ -9,6 +9,7 @@
     "pages/mine/mine",
     "pages/mine/myMark/myMark",
     "pages/mine/myPublish/myPublish",
+    "pages/mine/mySend/mySend",
     "pages/mine/resume/resume",
     "pages/list/article_details/article_details",
     "pages/list/new_article/new_article",

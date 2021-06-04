@@ -312,7 +312,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
@@ -333,6 +332,26 @@ var _default =
       success: function success(res) {
         _this.hotJob = res.data.data;
         console.log(_this.hotJob);
+      } });
+
+
+    // 为规划页面作准备
+    wx.getStorage({
+      key: 'no_finished',
+      fail: function fail() {
+        wx.setStorage({
+          key: 'no_finished',
+          data: [] });
+
+      } });
+
+    wx.getStorage({
+      key: 'finished',
+      fail: function fail() {
+        wx.setStorage({
+          key: 'finished',
+          data: [] });
+
       } });
 
   },
@@ -362,7 +381,7 @@ var _default =
     },
     gotoCourse: function gotoCourse() {
       uni.navigateTo({
-        url: '/pages/index/college/college' });
+        url: '/pages/index/course/course' });
 
     },
     gotoPlanning: function gotoPlanning() {

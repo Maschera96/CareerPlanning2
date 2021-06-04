@@ -4,13 +4,14 @@
 	
 	.avatar {
 		font-variant: small-caps;
-		margin-left: 120rpx;
+		margin-left: 240rpx;
 		padding: 0;
 		display: inline-flex;
 		text-align: center;
 		justify-content: center;
 		align-items: center;
-		background-color: #ccc;
+		background-color: #fffffff;
+		/* border: 1rpx #ccc; */
 		color: #ffffff;
 		white-space: nowrap;
 		position: relative;

@@ -238,6 +238,16 @@ var _default =
           data: res });
 
         uni.navigateBack({});
+      }).catch(function (res) {
+        wx.setStorage({
+          key: 'no_finished',
+          data: [{
+            type: _this.type,
+            target: _this.detail,
+            date: _this.date }] });
+
+
+        uni.navigateBack({});
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

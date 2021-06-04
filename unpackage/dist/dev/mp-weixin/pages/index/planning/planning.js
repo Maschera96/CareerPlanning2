@@ -302,19 +302,8 @@ __webpack_require__.r(__webpack_exports__);
     // })
   },
 
-  onShow: function onShow() {var _this = this;
-
-
-    var unfiniPro = wx.getStorage({ key: 'no_finished' }).then(function (res) {
-      return _this.updateNoFinishTargets(res.data);
-    });
-    var finiPro = wx.getStorage({ key: 'finished' }).then(function (res) {
-      return _this.updateFinishTargets(res.data);
-    });
-    Promise.all([finiPro, unfiniPro]).then(function (result) {
-      _this.quotient = parseInt(result[0] / (result[0] + result[1]) * 100);var _result = _slicedToArray(
-      result, 2);_this.fini = _result[0];_this.unfini = _result[1];
-    });
+  onShow: function onShow() {
+    this.updateProgress();
   },
 
   methods: {
@@ -338,10 +327,10 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     //更新并渲染未完成目标列表
-    updateNoFinishTargets: function updateNoFinishTargets(res) {var _this2 = this;
+    updateNoFinishTargets: function updateNoFinishTargets(res) {var _this = this;
       //res应该是数组
       res.forEach(function (item) {
-        item.type = _this2.setType(item.type);
+        item.type = _this.setType(item.type);
         var time = new Date(item.date);
         var today = new Date();
         item.time = Math.ceil((time - today) / (1000 * 3600 * 24));
@@ -351,15 +340,28 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     //更新并渲染已完成目标列表
-    updateFinishTargets: function updateFinishTargets(res) {var _this3 = this;
+    updateFinishTargets: function updateFinishTargets(res) {var _this2 = this;
       //res应该是数组
       res.forEach(function (item) {
-        item.type = _this3.setType(item.type);
+        item.type = _this2.setType(item.type);
         var time = new Date(item.date);
         item.time = "".concat(time.getMonth() + 1, "\u6708").concat(time.getDate(), "\u65E5");
       });
       this.finishTargets = res;
       return res.length;
+    },
+
+    updateProgress: function updateProgress() {var _this3 = this;
+      var unfiniPro = wx.getStorage({ key: 'no_finished' }).then(function (res) {
+        return _this3.updateNoFinishTargets(res.data);
+      });
+      var finiPro = wx.getStorage({ key: 'finished' }).then(function (res) {
+        return _this3.updateFinishTargets(res.data);
+      });
+      Promise.all([finiPro, unfiniPro]).then(function (result) {
+        _this3.quotient = parseInt(result[0] / (result[0] + result[1]) * 100);var _result = _slicedToArray(
+        result, 2);_this3.fini = _result[0];_this3.unfini = _result[1];
+      });
     },
 
     onClick: function onClick($event, item, index) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var un_finiItem, changeItem;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
@@ -384,7 +386,8 @@ __webpack_require__.r(__webpack_exports__);
                             wx.showToast({
                               title: '目标已删除' });
 
-                          }case 7:case "end":return _context.stop();}}}, _callee);})));case 6:case "end":return _context2.stop();}}}, _callee2);}))();
+                          }
+                          _this4.updateProgress();case 8:case "end":return _context.stop();}}}, _callee);})));case 6:case "end":return _context2.stop();}}}, _callee2);}))();
 
     },
     change: function change(open) {
@@ -410,10 +413,12 @@ __webpack_require__.r(__webpack_exports__);
                   wx.getStorage({
                     key: 'no_finished' }));case 8:un_finiItem = _context3.sent;
 
-                this.updateNoFinishTargets(un_finiItem.data.concat(changeItem));
-                wx.setStorage({
-                  key: 'no_finished',
-                  data: this.noFinishTargets });case 11:case "end":return _context3.stop();}}}, _callee3, this);}));function recoverTarget(_x) {return _recoverTarget.apply(this, arguments);}return recoverTarget;}() } };exports.default = _default;
+                this.updateNoFinishTargets(un_finiItem.data.concat(changeItem));_context3.next = 12;return (
+                  wx.setStorage({
+                    key: 'no_finished',
+                    data: this.noFinishTargets }));case 12:
+
+                this.updateProgress();case 13:case "end":return _context3.stop();}}}, _callee3, this);}));function recoverTarget(_x) {return _recoverTarget.apply(this, arguments);}return recoverTarget;}() } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

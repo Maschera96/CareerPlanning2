@@ -130,13 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
 //
 //
 //
@@ -162,74 +156,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
-
   data: function data() {
     return {
-      listData: [],
-      modalName: null,
-      listTouchStart: 0,
-      listTouchDirection: null };
+      articlePage: 1,
+      articleList: [],
+      openId: '' };
 
   },
 
-  onLoad: function onLoad(options) {
+  onLoad: function () {var _onLoad = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(e) {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                wx.getStorage({
+                  key: 'openId' }));case 2:res = _context.sent;
 
-    var th = this;
-
-    wx.cloud.init();
-    var db = wx.cloud.database();
-    wx.cloud.callFunction({
-      name: 'article',
-      data: {
-        $url: 'myArticles' } }).
-
-    then(function (res) {
-      console.log(res);
-      th.listData = res.result.data;
-    }).
-    catch(function (err) {return console.error(err);});
-
-    // wx.cloud.callFunction({
-    //   name:'article',
-    //   data:{
-    //     $url:'articleList',
-    //   }
-    // }).then(res => {
-    // 	console.log(res.result);
-    // 	th.listData=res.result.data; 
-    // }).catch(err => {
-    //   console.error(err) 
-    // })
-  },
-
+              this.openId = res.data;
+              this.reqArticle();case 5:case "end":return _context.stop();}}}, _callee, this);}));function onLoad(_x) {return _onLoad.apply(this, arguments);}return onLoad;}(),
 
 
   methods: {
-    gotoarticle: function gotoarticle(artId) {
+    reqArticle: function reqArticle() {var _this = this;
+      uni.request({
+        url: "http://1.15.175.248:8006/my_publish/list/".concat(this.openId, "/").concat(this.articlePage, "/20"),
+        success: function success(res) {
+          console.log(res.data.data.data);
+          _this.articleList = _this.articleList.concat(res.data.data.data);
+        } });
+
+    },
+    gotoArticle: function gotoArticle(indexCode) {
       uni.navigateTo({
-        url: '../article_details/article_details?artId=' + artId });
+        url: '/pages/list/article_details/article_details?artId=' + indexCode });
 
-    },
-    // ListTouch触摸开始
-    ListTouchStart: function ListTouchStart(e) {
-      this.listTouchStart = e.touches[0].pageX;
-    },
-
-    // ListTouch计算方向
-    ListTouchMove: function ListTouchMove(e) {
-      this.listTouchDirection = e.touches[0].pageX - this.listTouchStart > 0 ? 'right' : 'left';
-    },
-
-    // ListTouch计算滚动
-    ListTouchEnd: function ListTouchEnd(e) {
-      if (this.listTouchDirection == 'left') {
-        console.log('这里！');
-        console.log(e.currentTarget.dataset);
-        this.modalName = e.currentTarget.dataset.target;
-      } else {
-        this.modalName = null;
-      }
-      this.listTouchDirection = null;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

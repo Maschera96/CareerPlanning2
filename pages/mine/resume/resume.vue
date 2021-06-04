@@ -15,7 +15,7 @@
 					<text class="text-intro">{{resume.educationExperience[0].education}} / {{resume.educationExperience[0].major}}专业</text>
 				</view>
 				<view class="avatar round">
-					<open-data type="userAvatarUrl" class="round" style="overflow: hidden;"></open-data>
+					<open-data type="userAvatarUrl" class="ava round" style="overflow: hidden;"></open-data>
 					<view class="tag badge cuIcon-male bg-blue"></view>
 				</view>
 			</view>	
@@ -61,7 +61,7 @@
 								<text class="text-introtion2">{{item.startTime}}-{{item.endTime}}</text>
 							</view>
 							<view class="icon">
-								<image class="college_icon" src="/static/学校.png"></image>
+								<image class="college_icon" src="/static/school.png"></image>
 							</view>						
 						</view>						   
 					</view>				
@@ -198,6 +198,10 @@
 					url: `http://1.15.175.248:8002/job/${this.jobId}/get/resume/1/5`,
 					success: (res) => {
 						console.log(res);
+						wx.showToast({
+							title: '投递成功',
+						})
+						setTimeout(() => {uni.navigateBack({})},1500)
 					}
 				})
 			}
@@ -208,4 +212,9 @@
 <style>
 	@import "@/colorui/resume.css";
 	@import "@/colorui/iconfont.css";
+	
+	.ava {
+		height: 128rpx;
+		width: 128rpx;
+	}
 </style>

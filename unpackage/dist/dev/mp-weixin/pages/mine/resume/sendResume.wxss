@@ -4,7 +4,7 @@
 }
 .avatar {
 		font-variant: small-caps;
-		margin-left: 120rpx;
+		margin-left: 240rpx;
 		padding: 0;
 		display: -webkit-inline-box;
 		display: -webkit-inline-flex;
@@ -16,7 +16,8 @@
 		-webkit-box-align: center;
 		-webkit-align-items: center;
 		        align-items: center;
-		background-color: #ccc;
+		background-color: #fffffff;
+		/* border: 1rpx #ccc; */
 		color: #ffffff;
 		white-space: nowrap;
 		position: relative;

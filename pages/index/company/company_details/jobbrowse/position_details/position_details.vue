@@ -84,7 +84,7 @@
 
 		<!-- 按钮层 -->
 		<view class="bottom padding">
-			<button :class="collect?'btn_2':'btn_1'" @tap='Collect'>立即收藏</button>
+			<button :class="mark?'btn_2':'btn_1'" @tap='Collect'>{{btnMessage}}</button>
 			<button class="btn_2" @tap="Issue" style="width: 60%; margin-left: 20rpx;">投递简历</button>
 		</view>
 		
@@ -126,7 +126,9 @@
 				id: null,
 				modalName: null,
 				modalType: null,
-				modalTitle: null
+				modalTitle: null,
+				mark: null,
+				btnMessage: '立即收藏',
 			}
 		},
 		onLoad: async function(option) {
@@ -134,14 +136,16 @@
 			const res = await wx.getStorage({
 				key: 'openId'
 			})
-			let [indexCode,openId] = [option.job_id,res.data]
-			console.log(indexCode);
-			this.indexCode = indexCode
+			this.openId = res.data
+			this.indexCode = option.job_id
 			uni.request({ 
-				url: `http://1.15.175.248:8002/job/get/${indexCode}/${openId}`,
+				url: `http://1.15.175.248:8002/job/get/${this.indexCode}/${this.openId}`,
 				success: (res) => {
 					this.job_ = res.data.data
 					console.log(this.job_);
+					this.mark = res.data.data.isCollectedByCurrentUser
+					if(this.mark){this.btnMessage = '已收藏'}
+					else{this.btnMessage = '立即收藏'}
 				}
 			})
 			
@@ -151,37 +155,29 @@
 
 		methods: {
 			Collect() {
-				this.collect = !this.collect
+				this.mark = !this.mark
 				//若还未收藏
-				let th = this
-				if (this.collect == true) {
-					wx.cloud.callFunction({
-						name: 'jobDetail',
-						data: {
-							job_id: this.posId,
-							company_id: this.comId,
+				if (this.mark) {
+					this.btnMessage = '已收藏'
+					uni.request({
+						url: `http://1.15.175.248:8002/job/collect/${this.indexCode}/${this.openId}`,
+						success: (res) => {
+							if(res.data.code === 0){
+								wx.showToast({title: '收藏成功'})
+							}
 						}
-					}).then(res => {
-						wx.showToast({
-							title: '收藏成功',
-						})
-					}).catch(err => {
-						console.error(err)
 					})
-					//若已收藏
-				} else {
-					wx.cloud.callFunction({
-						name: 'jobDetail',
-						data: {
-							job_id: this.posId,
-							company_id: this.comId,
+				} 
+				//若已收藏
+				else {
+					this.btnMessage = '立即收藏'
+					uni.request({
+						url: `http://1.15.175.248:8002/job/cancel_collect/${this.indexCode}/${this.openId}`,
+						success: (res) => {
+							if(res.data.code === 0){
+								wx.showToast({title: '取消收藏成功'})
+							}
 						}
-					}).then(res => {
-						wx.showToast({
-							title: '已取消收藏',
-						})
-					}).catch(err => {
-						console.error(err)
 					})
 				}
 			},

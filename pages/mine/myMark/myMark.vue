@@ -50,14 +50,17 @@
 			}
 		},
 		
-		onLoad:async function(e){
+		onShow:async function(e){
 			let res = await wx.getStorage({
 				key: 'openId'
 			})
 			this.openId = res.data
+			this.jobList = []
 			this.reqJob()
+			this.articleList = []
 			this.reqArticle()
 		}, 
+		
 	
 		methods: {
 			tabSelect(e) {
@@ -65,7 +68,7 @@
 			},
 			reqJob: function(){
 				uni.request({
-					url: `http://1.15.175.248:8006/my_visit/job/${this.openId}/${this.jobPage}/20`,
+					url: `http://1.15.175.248:8006/my_collection/job/${this.openId}/${this.jobPage}/20`,
 					success: (res) => {
 						console.log(res.data.data.data);
 						this.jobList = this.jobList.concat(res.data.data.data)
@@ -74,7 +77,7 @@
 			},
 			reqArticle: function (){
 				uni.request({
-					url: `http://1.15.175.248:8006/my_visit/article/${this.openId}/${this.articlePage}/20`,
+					url: `http://1.15.175.248:8006/my_collection/article/${this.openId}/${this.articlePage}/20`,
 					success: (res) => {
 						console.log(res.data.data.data);
 						this.articleList = this.articleList.concat(res.data.data.data)

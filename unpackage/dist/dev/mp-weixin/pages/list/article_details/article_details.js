@@ -245,8 +245,11 @@ var _default =
       comment: {
         content: null,
         userOpenId: null,
-        articleIndexCode: null } };
+        articleIndexCode: null },
 
+      articleMark: null,
+      zanMark: null,
+      zanCount: null };
 
   },
 
@@ -262,6 +265,9 @@ var _default =
         success: function success(res) {
           console.log(res.data.code);
           console.log(res);
+          _this.articleMark = res.data.data.isCollectedByCurrentUser;
+          _this.zanMark = res.data.data.isZanByCurrentUser;
+          _this.zanCount = res.data.data.zanCount;
           if (res.data.code === -1) {
             _this.status = false;
           } else {
@@ -284,94 +290,24 @@ var _default =
         } });
 
     });
-    // wx.cloud.init()
-    // const db = wx.cloud.database();
-    // const _ = db.command;
-
-    // this.artId=option.artId
-    // //获取数据
-    //    wx.cloud.callFunction({
-    // 	name:'article',
-    // 	data: {
-    // 		$url:'artDetail',
-    // 		other: {
-    // 			id:this.artId,
-    // 		}
-    // 	}
-    //    }).then(res => {
-    // 	console.log(res);
-    // 	this.articles = res.result.data
-    // 	this.thumbsNumber = res.result.data.thumbsUp.length
-    //    }).catch(err => {
-    // 	console.error(err)
-    //    }),
-    // //查询是否收藏
-    // wx.cloud.callFunction({
-    //     name:'article',
-    //     data:{
-    //         $url:'queryfollow',
-    //         other:{
-    // 			id:this.artId
-    //         }
-    //     }
-    // }).then(res => {
-    // 	if (res.result.data.followed == "1"){
-    // 		this.collect = true
-    // 	}else{
-    // 		this.collect = false
-    // 	}
-    // }).catch(err => {
-    // 	console.error(err)
-    // }),
-    // //查询是否点赞
-    // wx.cloud.callFunction({
-    //       name:'article',
-    //       data:{
-    //         $url:'queryThumbsUp',
-    //         other:{
-    //           id:this.artId
-    //         }
-    //       }
-    //     }).then(res => {
-    // 		this.thumbsNumber = res.result.data.thumbsUped
-    // 	  if(res.result.data.thumbsUped == '1'){
-    // 		  this.thumbs = true
-    // 	  }else{
-    // 		  this.thumbs = false
-    // 	  }
-    //     }).catch(err => {
-    //       console.error(err)
-    //     })
-    // //渲染评论
-    // wx.cloud.callFunction({
-    //      name:'articleCompents',
-    //      data: {
-    //        articleId:this.artId,
-    //      }
-    //    }).then(res => {
-    // 	   this.commitcontent = res.result.data
-    //    });
-
   },
 
 
   methods: {
     //收藏
     Collect: function Collect() {var _this2 = this;
-      // this.collect = !this.collect
-      // //若还未收藏
-      // let th = this
-      if (this.article.isCollectedByCurrentUser == false) {
+      //若还未收藏
+      if (!this.articleMark) {
         wx.getStorage({
           key: 'openId' }).
         then(function (res) {
-          // res.data = 'test001'
           console.log('当前用户为', res.data);
           uni.request({
             url: 'http://1.15.175.248:8005/article/collect/' + _this2.artId + '/' + res.data,
             success: function success(res) {
               console.log(res.data.code);
               console.log(res);
+              _this2.articleMark = true;
               if (res.data.code === -1) {
                 _this2.status = false;
               } else {
@@ -380,23 +316,6 @@ var _default =
             } });
 
         });
-        // wx.cloud.callFunction({
-        // 	name: 'article',
-        // 	data: {
-        // 		$url: 'followArt',
-        // 		other: {
-        // 			id: this.artId,
-        // 			nickName:'biboer2',
-        // 			avatarUrl:'https:image.com'
-        // 		}
-        // 	}
-        // }).then(res =>{
-        // 	wx.showToast({
-        // 		title: '收藏成功',
-        // 	})
-        // }).catch(err => {
-        // 	console.error(err)
-        // })
         //若已收藏
       } else {
         wx.getStorage({
@@ -409,6 +328,7 @@ var _default =
             success: function success(res) {
               console.log(res.data.code);
               console.log(res);
+              _this2.articleMark = false;
               if (res.data.code === -1) {
                 _this2.status = false;
               } else {
@@ -417,21 +337,6 @@ var _default =
             } });
 
         });
-        // wx.cloud.callFunction({
-        // 	name:'article',
-        // 	data: {
-        // 		$url:'resetfollow',
-        // 		other:{
-        // 		id:this.artId,
-        // 		}
-        // 	}
-        // }).then(res => {
-        // 	wx.showToast({
-        // 		title: '已取消收藏',
-        // 	})
-        // }).catch(err => {
-        // 	console.error(err)
-        // })
       }
     },
     //发布评论
@@ -466,35 +371,6 @@ var _default =
             } });
 
         });
-        // wx.cloud.callFunction({
-        // 	name:'articleReview',
-        // 	data: {
-        // 		content:this.comment,
-        // 		date:new Date(),
-        // 		articleId:this.artId,
-        // 		sender: {
-        // 			avatarUrl: this.avatarUrl,
-        // 			nickName: this.nickName,
-        // 		}
-        // 	}
-        // }).then(res => {
-        // 	wx.showToast({
-        // 		title: '评论成功',
-        // 	}),
-        // 	this.comment = ''
-        // 	//重新渲染一次评论
-        // 	wx.cloud.callFunction({
-        // 		name:'articleCompents',
-        // 		data: {
-        // 			articleId:this.artId,
-        // 	    }
-        // 	}).then(res => {
-        // 		this.commitcontent = res.result.data
-        // 	});
-        // })
-        // .catch(err => {
-        // 	console.error(err)
-        // })
         //页面滚动
         wx.createSelectorQuery().select('#j_page').boundingClientRect(function (rect) {
           console.log(rect);
@@ -511,20 +387,19 @@ var _default =
     },
     //点赞 
     thumbsUp: function thumbsUp() {var _this4 = this;
-      // this.thumbs = !this.thumbs
-      // //若还未点赞
-      // let th = this
-      if (this.article.isZanByCurrentUser == false) {
+      //若还未点赞
+      if (!this.zanMark) {
         wx.getStorage({
           key: 'openId' }).
         then(function (res) {
-          // res.data = 'test001'
           console.log('当前用户为', res.data);
           uni.request({
             url: 'http://1.15.175.248:8005/article/zan/' + _this4.artId + '/' + res.data,
             success: function success(res) {
               console.log(res.data.code);
               console.log(res);
+              _this4.zanMark = true;
+              _this4.zanCount++;
               if (res.data.code === -1) {
                 _this4.status = false;
               } else {
@@ -533,35 +408,19 @@ var _default =
             } });
 
         });
-        // wx.cloud.callFunction({     
-        // 	name:'article',//云函数名     
-        // 	data: {       
-        // 		$url:'thumbsUp',//接口路由       
-        // 		other:{         
-        // 			nickName: this.nickName,//用户昵称         
-        // 			avatarUrl: this.avatarUrl,//用户头像         
-        // 			id: this.artId//文章id       
-        // 		}    
-        // 	}   
-        // }).then(res => {
-        // 	this.thumbsNumber ++
-        // 	wx.showToast({
-        // 		title: '点赞成功',
-        // 	})
-        // })
-        // .catch(err => {console.log(err)}) 
         //若已点赞
       } else {
         wx.getStorage({
           key: 'openId' }).
         then(function (res) {
-          // res.data = 'test001'
           console.log('当前用户为', res.data);
           uni.request({
             url: 'http://1.15.175.248:8005/article/cancel_zan/' + _this4.artId + '/' + res.data,
             success: function success(res) {
               console.log(res.data.code);
               console.log(res);
+              _this4.zanMark = false;
+              _this4.zanCount--;
               if (res.data.code === -1) {
                 _this4.status = false;
               } else {
@@ -570,22 +429,6 @@ var _default =
             } });
 
         });
-        // wx.cloud.callFunction({
-        // 	name:'article',
-        // 	data: {
-        // 		$url:'resetThumbsUp',
-        // 		other:{
-        // 			id: this.artId,//文章id
-        // 		}
-        // 	}
-        // }).then(res => {
-        // 	this.thumbsNumber --
-        // 	wx.showToast({
-        // 		title: '取消点赞',
-        // 	})
-        // }).catch(err => {
-        // 	console.error(err)
-        // })
       }
     },
     toCommentInput: function toCommentInput() {
